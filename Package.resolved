@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jackgene/Curses.git",
       "state" : {
-        "revision" : "eaab23bdf129116176c6efd98a4193ed35c42c97",
-        "version" : "1.0.2"
+        "revision" : "ce5bc395a2c6115de4683e2e368f7b6fca4716fd",
+        "version" : "1.0.4"
       }
     },
     {
