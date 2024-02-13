@@ -1,5 +1,5 @@
 /// Application error
-enum ZoomChatPublisherError: Error {
+enum PublishError: Error {
     case zoomNotRunning
     case noMeetingInProgress
     case chatNotOpen

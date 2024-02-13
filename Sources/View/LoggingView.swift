@@ -1,14 +1,15 @@
 import Foundation
 import Logging
+import RxSwift
 
 /// View that simply logs events to the console.
 struct LoggingView: View {
     static let log: Logging.Logger = Logging.Logger(label: "main")
     
-    func render(_ publishAttemptResult: Result<Event, ZoomChatPublisherError>) {
-        switch publishAttemptResult {
-        case .success(.publishAttempt(_, let httpResponseResult)):
-            switch httpResponseResult {
+    private func render(_ eventResult: Result<PublishEvent, PublishError>) {
+        switch eventResult {
+        case .success(.publish(let publishAttempt)):
+            switch publishAttempt.httpResponseResult {
             case .success(let response):
                 let statusCode: Int = response.statusCode
                 response.url.map { (url: URL) in
@@ -42,5 +43,9 @@ struct LoggingView: View {
                 Self.log.info("Chat not open")
             }
         }
+    }
+    
+    func render(_ events: Observable<Result<PublishEvent, PublishError>>) -> Disposable {
+        events.subscribe(onNext: render)
     }
 }

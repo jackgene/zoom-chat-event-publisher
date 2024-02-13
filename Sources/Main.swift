@@ -64,11 +64,8 @@ struct Main: ParsableCommand {
             statusOkAttribute: statusOkAttribute, statusBadAttribute: statusBadAttribute,
             successAttribute: successAttribute, failureAttribute: failureAttribute
         )
-        publisher
-            .scrapeAndPublishChatMessages()
-            .subscribe(onNext: view.render)
+        view.render(publisher.scrapeAndPublishChatMessages())
             .disposed(by: disposeBag)
-        
-        RunLoop.current.run()
+        screen.wait()
     }
 }

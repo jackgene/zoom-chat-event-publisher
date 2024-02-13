@@ -36,7 +36,7 @@ struct ZoomChatPublisher {
     }
     
     private func anyMeetingWindow(app: AXUIElement) -> AXUIElement? {
-        meetingWindow(app: app) ?? app.windows.first {
+        meetingWindow(app: app) ?? windowChatTable(app: app) ?? app.windows.first {
             $0.title?.starts(with: "zoom share") ?? false
         }
     }
@@ -138,10 +138,10 @@ struct ZoomChatPublisher {
             .1 ?? []
     }
     
-    func scrapeAndPublishChatMessages() -> Observable<Result<Event, ZoomChatPublisherError>> {
+    func scrapeAndPublishChatMessages() -> Observable<Result<PublishEvent, PublishError>> {
         Observable<Int>
             .timer(.seconds(0), period: .seconds(2), scheduler: scheduler)
-            .map { _ -> Result<AXUIElement, ZoomChatPublisherError> in
+            .map { _ -> Result<AXUIElement, PublishError> in
                 guard let app = zoomApplication() else {
                     return .failure(.zoomNotRunning)
                 }
@@ -151,23 +151,23 @@ struct ZoomChatPublisher {
                 
                 return .success(app)
             }
-            .flatMapFirst { (appResult: Result<AXUIElement, ZoomChatPublisherError>) in
+            .flatMapFirst { (appResult: Result<AXUIElement, PublishError>) in
                 switch appResult {
                 case .success(let app):
                     let chatTables: Observable<AXUIElement?> = chatTables(app: app).share()
-                    let metadata: Observable<Result<Event, ZoomChatPublisherError>> = chatTables
+                    let metadata: Observable<Result<PublishEvent, PublishError>> = chatTables
                         .map {
                             $0 != nil ? .success(.noOp) : .failure(.chatNotOpen)
                         }
-                    let publishAttempts: Observable<Result<Event, ZoomChatPublisherError>> = chatRows(chatTables: chatTables)
-                        .map { row -> Result<AXUIElement, ZoomChatPublisherError> in
+                    let publishes: Observable<Result<PublishEvent, PublishError>> = chatRows(chatTables: chatTables)
+                        .map { row -> Result<AXUIElement, PublishError> in
                             os_log("Chat rows layout:\n%{public}s", row.layoutDescription)
                             return .success(row)
                         }
                         .concatMap {
                             (
-                                rowResult: Result<AXUIElement, ZoomChatPublisherError>
-                            ) -> Observable<Result<ZoomUIChatTextCell, ZoomChatPublisherError>>
+                                rowResult: Result<AXUIElement, PublishError>
+                            ) -> Observable<Result<ZoomUIChatTextCell, PublishError>>
                             in
                             
                             switch rowResult {
@@ -183,8 +183,8 @@ struct ZoomChatPublisher {
                         .scan(
                             ("Unknown to Unknown", nil)
                         ) { (
-                            accum: (String, Result<ChatMessage, ZoomChatPublisherError>?),
-                            nextCellResult: Result<ZoomUIChatTextCell, ZoomChatPublisherError>
+                            accum: (String, Result<ChatMessage, PublishError>?),
+                            nextCellResult: Result<ZoomUIChatTextCell, PublishError>
                         ) in
                             let (route, _): (String, _) = accum
                             switch nextCellResult {
@@ -202,8 +202,8 @@ struct ZoomChatPublisher {
                         }
                         .compactMap { $0.1 }
                         .concatMap { (
-                            chatMessageResult: Result<ChatMessage, ZoomChatPublisherError>
-                        ) -> Observable<Result<Event, ZoomChatPublisherError>> in
+                            chatMessageResult: Result<ChatMessage, PublishError>
+                        ) -> Observable<Result<PublishEvent, PublishError>> in
                             switch chatMessageResult {
                             case .success(let chatMessage):
                                 var urlComps: URLComponents = destinationURL
@@ -234,14 +234,20 @@ struct ZoomChatPublisher {
                                     }
                                     .catch { Observable.just(.failure($0)) }
                                     .map {
-                                        .success(.publishAttempt(chatMessage: chatMessage, httpResponseResult: $0))
+                                        .success(
+                                            .publish(
+                                                attempt: PublishAttempt(
+                                                    chatMessage: chatMessage, httpResponseResult: $0
+                                                )
+                                            )
+                                        )
                                     }
                                 
                             case .failure(let error):
                                 return Observable.just(.failure(error))
                             }
                         }
-                    return Observable.of(metadata, publishAttempts).merge()
+                    return Observable.of(metadata, publishes).merge()
                     
                 case .failure(let error):
                     return Observable.just(.failure(error))
