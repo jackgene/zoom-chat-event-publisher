@@ -59,7 +59,7 @@ struct Main: ParsableCommand {
             failureAttribute = Attribute.blink
         }
         
-        let view: some View = CursesView(
+        let view: View = CursesView(
             screen: screen,
             statusOkAttribute: statusOkAttribute, statusBadAttribute: statusBadAttribute,
             successAttribute: successAttribute, failureAttribute: failureAttribute
