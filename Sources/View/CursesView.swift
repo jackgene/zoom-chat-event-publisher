@@ -2,7 +2,7 @@ import Curses
 import Foundation
 import RxSwift
 
-struct CursesView: View {
+struct CursesView<TerminalSizes: Observable<Size>>: View {
     private let screen: Screen
     private let mainWindow: Window
     private let consoleWindow: Window
@@ -10,11 +10,13 @@ struct CursesView: View {
     private let statusBadAttribute: Attribute
     private let successAttribute: Attribute
     private let failureAttribute: Attribute
+    private let terminalSizes: TerminalSizes
     
     init(
         screen: Screen,
         statusOkAttribute: Attribute, statusBadAttribute: Attribute,
-        successAttribute: Attribute, failureAttribute: Attribute
+        successAttribute: Attribute, failureAttribute: Attribute,
+        terminalSizes: TerminalSizes
     ) {
         self.screen = screen
         self.mainWindow = screen.window
@@ -27,10 +29,7 @@ struct CursesView: View {
         self.statusBadAttribute = statusBadAttribute
         self.successAttribute = successAttribute
         self.failureAttribute = failureAttribute
-    }
-    
-    private var statusWidth: Int {
-        (mainWindow.size.width - 2) / 3
+        self.terminalSizes = terminalSizes
     }
     
     private func pad(_ text: String, maxWidth: Int) -> String {
@@ -53,8 +52,7 @@ struct CursesView: View {
         }
     }
     
-    private func writeZoomRunningStatus(ok: Bool) {
-        let width: Int = statusWidth
+    private func writeZoomRunningStatus(ok: Bool, width: Int) {
         mainWindow.cursor.position = Point(x: 0, y: 0)
         if ok {
             mainWindow.turnOn(statusOkAttribute)
@@ -67,8 +65,7 @@ struct CursesView: View {
         }
     }
     
-    private func writeMeetingOngoingStatus(ok: Bool?) {
-        let width: Int = statusWidth
+    private func writeMeetingOngoingStatus(ok: Bool?, width: Int) {
         mainWindow.cursor.position = Point(x: width + 1, y: 0)
         switch ok {
         case .some(true):
@@ -86,8 +83,7 @@ struct CursesView: View {
         }
     }
     
-    private func writeChatOpenStatus(ok: Bool?) {
-        let width: Int = statusWidth
+    private func writeChatOpenStatus(ok: Bool?, width: Int) {
         mainWindow.cursor.position = Point(x: (width + 1) * 2, y: 0)
         switch ok {
         case .some(true):
@@ -105,31 +101,30 @@ struct CursesView: View {
         }
     }
     
-    private func writeStatuses(status: ZoomApplicationStatus) {
-        mainWindow.cursor.position = Point(x: 0, y: 0)
-        mainWindow.clearToEndOfLine()
+    private func writeStatuses(_ status: ZoomApplicationStatus, terminalSize: Size) {
+        let statusWidth: Int = (terminalSize.width - 2) / 3
         switch status {
         case .running(let meetingStatus):
-            writeZoomRunningStatus(ok: true)
+            writeZoomRunningStatus(ok: true, width: statusWidth)
             switch meetingStatus {
             case .inProgress(let chatOpen):
-                writeMeetingOngoingStatus(ok: true)
-                writeChatOpenStatus(ok: chatOpen)
+                writeMeetingOngoingStatus(ok: true, width: statusWidth)
+                writeChatOpenStatus(ok: chatOpen, width: statusWidth)
                 
             case .notInProgress:
-                writeMeetingOngoingStatus(ok: false)
-                writeChatOpenStatus(ok: nil)
+                writeMeetingOngoingStatus(ok: false, width: statusWidth)
+                writeChatOpenStatus(ok: nil, width: statusWidth)
             }
             
         case .notRunning:
-            writeZoomRunningStatus(ok: false)
-            writeMeetingOngoingStatus(ok: nil)
-            writeChatOpenStatus(ok: nil)
+            writeZoomRunningStatus(ok: false, width: statusWidth)
+            writeMeetingOngoingStatus(ok: nil, width: statusWidth)
+            writeChatOpenStatus(ok: nil, width: statusWidth)
         }
     }
     
-    private func render(_ model: Model) {
-        writeStatuses(status: model.status)
+    private func render(_ model: Model, terminalSize: Size) {
+        writeStatuses(model.status, terminalSize: terminalSize)
         
         consoleWindow.clear()
         for publishAttempt: PublishAttempt in model.publishAttempts {
@@ -150,8 +145,9 @@ struct CursesView: View {
                 consoleWindow.turnOff(failureAttribute)
                 errorLength = error.localizedDescription.count
             }
-            let maxTextLength: Int = consoleWindow.size.width - errorLength - 4 // 4 = [, ], space, and a space at the end
+            let maxTextLength: Int = terminalSize.width - errorLength - 4 // 4 = [, ], space, and a space at the end
             let logOutputUntruncated: String = publishAttempt.chatMessage.description
+                .replacingOccurrences(of: "\n", with: "⏎")
             let logOutput: String
             if logOutputUntruncated.count <= maxTextLength {
                 logOutput = logOutputUntruncated
@@ -159,9 +155,8 @@ struct CursesView: View {
                 logOutput = logOutputUntruncated.prefix(maxTextLength - 1) + "…"
             }
             consoleWindow.write("] \(logOutput)\n")
-            consoleWindow.refresh()
         }
-        
+        consoleWindow.refresh()
         mainWindow.refresh()
     }
     
@@ -174,7 +169,7 @@ struct CursesView: View {
                         status: .running(meeting: .inProgress(chatOpen: true)),
                         publishAttempts: model.publishAttempts.suffix(1023) + [ publishAttempt ]
                     )
-
+                    
                 case .success(.noOp):
                     return Model(
                         status: .running(meeting: .inProgress(chatOpen: true)),
@@ -198,6 +193,17 @@ struct CursesView: View {
                     )
                 }
             }
-            .subscribe(onNext: render)
+            .flatMapLatest { (model: Model) in
+                terminalSizes
+                    .do(onNext: { _ in
+                        mainWindow.cursor.position = Point(x: 0, y: 0)
+                        mainWindow.clearToEndOfLine()
+                    })
+                    .map { (model, $0) }
+            }
+            .subscribe(onNext: { (modelAndSize: (Model, Size)) in
+                let (model, terminalSize): (Model, Size) = modelAndSize
+                render(model, terminalSize: terminalSize)
+            })
     }
 }

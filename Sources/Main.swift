@@ -21,13 +21,16 @@ struct Main: ParsableCommand {
         let publisher: ZoomChatPublisher = ZoomChatPublisher(
             destinationURL: destinationURL
         )
+        let terminalSizes: ReplaySubject<Size> = ReplaySubject.create(bufferSize: 1)
         
         // View
-        class Handler: CursesHandlerProtocol {
+        class Handler<TerminalSizes: ObserverType>: CursesHandlerProtocol where TerminalSizes.Element == Size {
             let screen: Screen
-            
-            init(_ screen: Screen) {
+            let terminalSizes: TerminalSizes
+
+            init(_ screen: Screen, _ terminalSizes: TerminalSizes) {
                 self.screen = screen
+                self.terminalSizes = terminalSizes
             }
             
             func interruptHandler() {
@@ -35,11 +38,14 @@ struct Main: ParsableCommand {
                 Main.exit(withError: nil)
             }
             
-            func windowChangedHandler(_ terminalSize: Size) {}
+            func windowChangedHandler(_ terminalSize: Size) {
+                terminalSizes.onNext(terminalSize)
+            }
         }
         
         let screen: Screen = Screen.shared
-        screen.startUp(handler: Handler(screen))
+        screen.startUp(handler: Handler(screen, terminalSizes))
+        terminalSizes.onNext(screen.window.size)
         
         let statusOkAttribute: Attribute
         let statusBadAttribute: Attribute
@@ -62,10 +68,12 @@ struct Main: ParsableCommand {
         let view: View = CursesView(
             screen: screen,
             statusOkAttribute: statusOkAttribute, statusBadAttribute: statusBadAttribute,
-            successAttribute: successAttribute, failureAttribute: failureAttribute
+            successAttribute: successAttribute, failureAttribute: failureAttribute,
+            terminalSizes: terminalSizes
         )
         view.render(publisher.scrapeAndPublishChatMessages())
             .disposed(by: disposeBag)
+        
         screen.wait()
     }
 }
