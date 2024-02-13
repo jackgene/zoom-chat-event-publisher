@@ -30,9 +30,18 @@ struct ZoomChatPublisher {
     }
     
     private func chatWindow(app: AXUIElement) -> AXUIElement? {
-        // Used to look for "Meeting Chat",
-        // but Zoom started using the meeting name as the title in some cases
-        app.windows.first { $0.title != "Zoom Meeting" }
+        app.windows.first {
+            !($0.title ?? "").starts(with: "Zoom") && // "Zoom", "Zoom Meeting"
+            $0.uiElements.contains {
+                $0.role == kAXSplitGroupRole &&
+                $0.uiElements.contains {
+                    $0.role == kAXScrollAreaRole &&
+                    $0.uiElements.contains {
+                        $0.role == kAXTableRole
+                    }
+                }
+            }
+        }
     }
     
     private func anyMeetingWindow(app: AXUIElement) -> AXUIElement? {
