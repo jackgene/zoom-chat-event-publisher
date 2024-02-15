@@ -178,18 +178,22 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
                     
                 case .failure(let error):
                     let status: ZoomApplicationStatus
+                    let publishAttempts: [PublishAttempt]
                     switch error {
                     case .zoomNotRunning:
                         status = .notRunning
+                        publishAttempts = []
                     case .noMeetingInProgress:
                         status = .running(meeting: .notInProgress)
+                        publishAttempts = []
                     case .chatNotOpen:
                         status = .running(meeting: .inProgress(chatOpen: false))
+                        publishAttempts = model.publishAttempts
                     }
                     
                     return Model(
                         status: status,
-                        publishAttempts: model.publishAttempts
+                        publishAttempts: publishAttempts
                     )
                 }
             }
