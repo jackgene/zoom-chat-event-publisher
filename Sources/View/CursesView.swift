@@ -78,7 +78,7 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
             mainWindow.turnOff(statusBadAttribute)
         case .none:
             mainWindow.turnOn(.dim)
-            mainWindow.write(pad("Meeting", maxWidth: width))
+            mainWindow.write(pad("No Meeting In Progress", maxWidth: width))
             mainWindow.turnOff(.dim)
         }
     }
@@ -96,7 +96,7 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
             mainWindow.turnOff(statusBadAttribute)
         case .none:
             mainWindow.turnOn(.dim)
-            mainWindow.write(pad("Chat", maxWidth: width))
+            mainWindow.write(pad("Chat Not Open", maxWidth: width))
             mainWindow.turnOff(.dim)
         }
     }
