@@ -51,6 +51,7 @@ struct Main: ParsableCommand {
         let statusBadAttribute: Attribute
         let successAttribute: Attribute
         let failureAttribute: Attribute
+        let metadataAttribute: Attribute
         let colors: Colors = Colors.shared
         if colors.areSupported {
             colors.startUp()
@@ -58,18 +59,20 @@ struct Main: ParsableCommand {
             statusBadAttribute = colors.newPair(foreground: .white, background: .red)
             successAttribute = colors.newPair(foreground: .green, background: .black)
             failureAttribute = colors.newPair(foreground: .red, background: .black)
+            metadataAttribute = colors.newPair(foreground: .black, background: .white)
         } else {
             statusOkAttribute = Attribute.reverse
             statusBadAttribute = Attribute.blink
             successAttribute = Attribute.dim
             failureAttribute = Attribute.blink
+            metadataAttribute = Attribute.reverse
         }
         
         let view: View = CursesView(
             screen: screen,
             statusOkAttribute: statusOkAttribute, statusBadAttribute: statusBadAttribute,
             successAttribute: successAttribute, failureAttribute: failureAttribute,
-            terminalSizes: terminalSizes
+            metadataAttribute: metadataAttribute, terminalSizes: terminalSizes
         )
         view.render(publisher.scrapeAndPublishChatMessages())
             .disposed(by: disposeBag)

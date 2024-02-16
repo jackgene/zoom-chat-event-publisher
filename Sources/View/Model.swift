@@ -1,15 +1,10 @@
+import Foundation
+
 /// The ZoomChatPublisher application state
 struct Model {
-    init(status: ZoomApplicationStatus, publishAttempts: [PublishAttempt]) {
-        self.status = status
-        self.publishAttempts = publishAttempts
-    }
-    
-    init() {
-        self.status = .notRunning
-        self.publishAttempts = []
-    }
-    
-    let status: ZoomApplicationStatus
-    let publishAttempts: [PublishAttempt]
+    let startTime: Date = Date()
+    var status: ZoomApplicationStatus = .notRunning
+    var publishAttempts: [PublishAttempt] = []
+    var publishSuccessCount: UInt = 0
+    var publishFailureCount: UInt = 0
 }

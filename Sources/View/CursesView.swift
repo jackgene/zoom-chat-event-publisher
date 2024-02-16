@@ -2,6 +2,15 @@ import Curses
 import Foundation
 import RxSwift
 
+private let intervalFormatter: DateComponentsFormatter = {
+    let f = DateComponentsFormatter()
+    f.unitsStyle = .full
+    f.allowedUnits = [.month, .day, .hour, .minute, .second]
+    f.maximumUnitCount = 3
+    
+    return f
+}()
+
 struct CursesView<TerminalSizes: Observable<Size>>: View {
     private let screen: Screen
     private let mainWindow: Window
@@ -10,25 +19,26 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
     private let statusBadAttribute: Attribute
     private let successAttribute: Attribute
     private let failureAttribute: Attribute
+    private let metadataAttribute: Attribute
     private let terminalSizes: TerminalSizes
     
     init(
         screen: Screen,
         statusOkAttribute: Attribute, statusBadAttribute: Attribute,
         successAttribute: Attribute, failureAttribute: Attribute,
-        terminalSizes: TerminalSizes
+        metadataAttribute: Attribute, terminalSizes: TerminalSizes
     ) {
         self.screen = screen
         self.mainWindow = screen.window
         self.consoleWindow = screen.newWindow(
-            position: Point(x: 0, y: 1),
-            size: Size(width: mainWindow.size.width, height: mainWindow.size.height - 1)
+            position: Point(x: 0, y: 1), size: Size(width: 0, height: 0)
         )
         self.consoleWindow.setScroll(enabled: true)
         self.statusOkAttribute = statusOkAttribute
         self.statusBadAttribute = statusBadAttribute
         self.successAttribute = successAttribute
         self.failureAttribute = failureAttribute
+        self.metadataAttribute = metadataAttribute
         self.terminalSizes = terminalSizes
     }
     
@@ -126,9 +136,27 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
         }
     }
     
+    private func writeProcessStatistics(_ model: Model, terminalSize: Size) {
+        let uptimeText: String = intervalFormatter.string(
+            from: model.startTime, to: Date()
+        ) ?? "Since Process Start"
+        let publishSuccessCount = model.publishSuccessCount
+        let publishTotalCount = model.publishSuccessCount + model.publishFailureCount
+        
+        mainWindow.cursor.position = Point(x: 0, y: terminalSize.height - 1)
+        mainWindow.write(
+            "Up \(uptimeText) | Messages Published: \(publishSuccessCount)/\(publishTotalCount)"
+                .padding(toLength: terminalSize.width, withPad: " ", startingAt: 0),
+            attribute: metadataAttribute
+        )
+    }
+    
     private func render(_ model: Model, terminalSize: Size) {
         writeStatuses(model.status, terminalSize: terminalSize)
         
+        consoleWindow.size = Size(
+            width: mainWindow.size.width, height: mainWindow.size.height - 1
+        )
         consoleWindow.clear()
         for publishAttempt: PublishAttempt in model.publishAttempts {
             let errorLength: Int
@@ -156,45 +184,45 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
             consoleWindow.write("] \(logOutput)\n")
         }
         consoleWindow.refresh()
+        
+        writeProcessStatistics(model, terminalSize: terminalSize)
         mainWindow.refresh()
     }
     
     func render(_ events: Observable<Result<PublishEvent, PublishError>>) -> Disposable {
         events
             .scan(Model()) { (model: Model, nextEvent: Result<PublishEvent, PublishError>) in
+                var nextModel: Model = model
+                
                 switch nextEvent {
                 case .success(.publish(let publishAttempt)):
-                    return Model(
-                        status: .running(meeting: .inProgress(chatOpen: true)),
-                        publishAttempts: model.publishAttempts.suffix(1023) + [ publishAttempt ]
-                    )
-                    
-                case .success(.noOp):
-                    return Model(
-                        status: .running(meeting: .inProgress(chatOpen: true)),
-                        publishAttempts: model.publishAttempts
-                    )
-                    
-                case .failure(let error):
-                    let status: ZoomApplicationStatus
-                    let publishAttempts: [PublishAttempt]
-                    switch error {
-                    case .zoomNotRunning:
-                        status = .notRunning
-                        publishAttempts = []
-                    case .noMeetingInProgress:
-                        status = .running(meeting: .notInProgress)
-                        publishAttempts = []
-                    case .chatNotOpen:
-                        status = .running(meeting: .inProgress(chatOpen: false))
-                        publishAttempts = model.publishAttempts
+                    nextModel.status = .running(meeting: .inProgress(chatOpen: true))
+                    nextModel.publishAttempts = model.publishAttempts.suffix(1023) + [ publishAttempt ]
+                    switch publishAttempt.httpResponseResult {
+                    case .success(let response) where response.statusCode == 204:
+                        nextModel.publishSuccessCount += 1
+                    default:
+                        nextModel.publishFailureCount += 1
                     }
                     
-                    return Model(
-                        status: status,
-                        publishAttempts: publishAttempts
-                    )
+                case .success(.noOp):
+                    nextModel.status = .running(meeting: .inProgress(chatOpen: true))
+                    
+                case .failure(let error):
+                    switch error {
+                    case .zoomNotRunning:
+                        nextModel.status = .notRunning
+                        nextModel.publishAttempts = []
+                    case .noMeetingInProgress:
+                        nextModel.status = .running(meeting: .notInProgress)
+                        nextModel.publishAttempts = []
+                    case .chatNotOpen:
+                        nextModel.status = .running(meeting: .inProgress(chatOpen: false))
+                        nextModel.publishAttempts = model.publishAttempts
+                    }
                 }
+                
+                return nextModel
             }
             .flatMapLatest { (model: Model) in
                 terminalSizes
