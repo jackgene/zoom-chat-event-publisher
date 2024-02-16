@@ -55,13 +55,13 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
     private func writeZoomRunningStatus(ok: Bool, width: Int) {
         mainWindow.cursor.position = Point(x: 0, y: 0)
         if ok {
-            mainWindow.turnOn(statusOkAttribute)
-            mainWindow.write(pad("Zoom Is Running", maxWidth: width))
-            mainWindow.turnOff(statusOkAttribute)
+            mainWindow.write(
+                pad("Zoom Is Running", maxWidth: width), attribute: statusOkAttribute
+            )
         } else {
-            mainWindow.turnOn(statusBadAttribute)
-            mainWindow.write(pad("Zoom Not Running", maxWidth: width))
-            mainWindow.turnOff(statusBadAttribute)
+            mainWindow.write(
+                pad("Zoom Not Running", maxWidth: width), attribute: statusBadAttribute
+            )
         }
     }
     
@@ -69,17 +69,20 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
         mainWindow.cursor.position = Point(x: width + 1, y: 0)
         switch ok {
         case .some(true):
-            mainWindow.turnOn(statusOkAttribute)
-            mainWindow.write(pad("Meeting In Progress", maxWidth: width))
-            mainWindow.turnOff(statusOkAttribute)
+            mainWindow.write(
+                pad("Meeting In Progress", maxWidth: width),
+                attribute: statusOkAttribute
+            )
         case .some(false):
-            mainWindow.turnOn(statusBadAttribute)
-            mainWindow.write(pad("No Meeting In Progress", maxWidth: width))
-            mainWindow.turnOff(statusBadAttribute)
+            mainWindow.write(
+                pad("No Meeting In Progress", maxWidth: width),
+                attribute: statusBadAttribute
+            )
         case .none:
-            mainWindow.turnOn(.dim)
-            mainWindow.write(pad("No Meeting In Progress", maxWidth: width))
-            mainWindow.turnOff(.dim)
+            mainWindow.write(
+                pad("No Meeting In Progress", maxWidth: width),
+                attribute: .dim
+            )
         }
     }
     
@@ -87,17 +90,17 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
         mainWindow.cursor.position = Point(x: (width + 1) * 2, y: 0)
         switch ok {
         case .some(true):
-            mainWindow.turnOn(statusOkAttribute)
-            mainWindow.write(pad("Chat Is Open", maxWidth: width))
-            mainWindow.turnOff(statusOkAttribute)
+            mainWindow.write(
+                pad("Chat Is Open", maxWidth: width), attribute: statusOkAttribute
+            )
         case .some(false):
-            mainWindow.turnOn(statusBadAttribute)
-            mainWindow.write(pad("Chat Not Open", maxWidth: width))
-            mainWindow.turnOff(statusBadAttribute)
+            mainWindow.write(
+                pad("Chat Not Open", maxWidth: width), attribute: statusBadAttribute
+            )
         case .none:
-            mainWindow.turnOn(.dim)
-            mainWindow.write(pad("Chat Not Open", maxWidth: width))
-            mainWindow.turnOff(.dim)
+            mainWindow.write(
+                pad("Chat Not Open", maxWidth: width), attribute: .dim
+            )
         }
     }
     
@@ -134,15 +137,11 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
             case .success(let response):
                 let statusCode: Int = response.statusCode
                 let statusAttribute: Attribute = statusCode == 204 ? successAttribute : failureAttribute
-                consoleWindow.turnOn(statusAttribute)
-                consoleWindow.write("\(statusCode)")
-                consoleWindow.turnOff(statusAttribute)
+                consoleWindow.write("\(statusCode)", attribute: statusAttribute)
                 errorLength = 3
                 
             case .failure(let error):
-                consoleWindow.turnOn(failureAttribute)
-                consoleWindow.write("\(error.localizedDescription)")
-                consoleWindow.turnOff(failureAttribute)
+                consoleWindow.write("\(error.localizedDescription)", attribute: failureAttribute)
                 errorLength = error.localizedDescription.count
             }
             let maxTextLength: Int = terminalSize.width - errorLength - 4 // 4 = [, ], space, and a space at the end
