@@ -123,6 +123,8 @@ struct ZoomChatPublisher {
         
         // Look in macOS system log to see what each row looks like
         // Note also that this may change with new versions of Zoom
+        os_log("Chat rows layout:\n%{public}s", row.layoutDescription)
+        
         return row.uiElements.first?.uiElements
             .compactMap {
                 switch $0.role {
@@ -170,8 +172,7 @@ struct ZoomChatPublisher {
                         }
                     let publishes: Observable<Result<PublishEvent, PublishError>> = chatRows(chatTables: chatTables)
                         .map { row -> Result<AXUIElement, PublishError> in
-                            os_log("Chat rows layout:\n%{public}s", row.layoutDescription)
-                            return .success(row)
+                            .success(row)
                         }
                         .concatMap {
                             (
