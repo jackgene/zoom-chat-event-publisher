@@ -137,16 +137,42 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
     }
     
     private func writeProcessStatistics(_ model: Model, terminalSize: Size) {
-        let uptimeText: String = intervalFormatter.string(
-            from: model.startTime, to: Date()
-        ) ?? "Since Process Start"
+        let messageTextMaxWidth: Int = 29
+        let uptimeText: String = {
+            let full: String = intervalFormatter
+                .string(from: model.startTime, to: Date())
+                .map { " Up " + $0 } ?? "Since Process Start"
+            let uptimeTextWidth: Int = max(
+                terminalSize.width - messageTextMaxWidth - 3, 0
+            )
+            
+            if uptimeTextWidth == 0 {
+                return ""
+            } else if full.count > uptimeTextWidth {
+                return full.prefix(uptimeTextWidth - 1) + "…"
+            } else {
+                return full.padding(toLength: uptimeTextWidth, withPad: " ", startingAt: 0)
+            }
+        }()
         let publishSuccessCount = model.publishSuccessCount
         let publishTotalCount = model.publishSuccessCount + model.publishFailureCount
+        let messagesText: String = {
+            let fullPrefix: String = "Messages Published"
+            let prefix: String
+            if terminalSize.width - 3 < messageTextMaxWidth {
+                prefix = fullPrefix.dropLast(max(messageTextMaxWidth - terminalSize.width + 4, 0)) + "…"
+            } else {
+                prefix = fullPrefix
+            }
+            
+            return "\(prefix): \(publishSuccessCount)/\(publishTotalCount)"
+        }()
         
         mainWindow.cursor.position = Point(x: 0, y: terminalSize.height - 1)
         mainWindow.write(
-            "Up \(uptimeText) | Messages Published: \(publishSuccessCount)/\(publishTotalCount)"
-                .padding(toLength: terminalSize.width, withPad: " ", startingAt: 0),
+            "\(uptimeText) | \(messagesText)".padding(
+                toLength: terminalSize.width, withPad: " ", startingAt: 0
+            ),
             attribute: metadataAttribute
         )
     }
