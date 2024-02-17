@@ -91,7 +91,7 @@ struct ZoomChatPublisher {
     
     private func chatTables(app: AXUIElement) -> Observable<AXUIElement?> {
         Observable<Int>
-            .timer(.seconds(0), period: .seconds(1), scheduler: scheduler)
+            .timer(.seconds(0), period: .milliseconds(500), scheduler: scheduler)
             .take(while: { _ in
                 // meeting is ongoing
                 anyMeetingWindow(app: app) != nil
@@ -149,7 +149,7 @@ struct ZoomChatPublisher {
     
     func scrapeAndPublishChatMessages() -> Observable<Result<PublishEvent, PublishError>> {
         Observable<Int>
-            .timer(.seconds(0), period: .seconds(2), scheduler: scheduler)
+            .timer(.seconds(0), period: .seconds(1), scheduler: scheduler)
             .map { _ -> Result<AXUIElement, PublishError> in
                 guard let app = zoomApplication() else {
                     return .failure(.zoomNotRunning)
