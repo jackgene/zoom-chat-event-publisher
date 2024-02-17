@@ -16,6 +16,8 @@ extension AXUIElement {
             identifier.map { "#\($0)" } ?? "(no identifier)"
         ), \(
             size.map { "\($0.width)x\($0.height)" } ?? "(no size)"
+        ) @ \(
+            position.map { "\($0.x),\($0.y)" } ?? "(no position)"
         )]: \(value ?? "(no value)")
         \(uiElements.map { $0.layoutDescription(depth: depth+1) }.joined())
         """
@@ -27,8 +29,21 @@ extension AXUIElement {
     public var role: String? { value(forAttribute: kAXRoleAttribute) }
     public var text: String? { value(forAttribute: kAXTextAttribute) }
     public var value: String? { value(forAttribute: kAXValueAttribute) }
+    public var hidden: String? { value(forAttribute: kAXHiddenAttribute) }
     public var windows: [AXUIElement] { value(forAttribute: kAXWindowsAttribute) ?? [] }
     public var uiElements: [AXUIElement] { value(forAttribute: kAXChildrenAttribute) ?? [] }
+    public var position: CGPoint? {
+        guard
+            let axValue: AXValue = value(forAttribute: kAXPositionAttribute),
+            AXValueGetType(axValue) == .cgPoint
+        else {
+            return nil
+        }
+        
+        var cgPoint: CGPoint = CGPoint()
+        AXValueGetValue(axValue, .cgPoint, &cgPoint)
+        return cgPoint
+    }
     public var size: CGSize? {
         guard
             let axValue: AXValue = value(forAttribute: kAXSizeAttribute),
