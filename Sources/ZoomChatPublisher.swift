@@ -101,16 +101,22 @@ struct ZoomChatPublisher {
     
     private func chatRows(chatTables: Observable<AXUIElement?>) -> Observable<AXUIElement> {
         chatTables
-            .scan((0, [])) { (accum: (Int, ArraySlice<AXUIElement>), table: AXUIElement?) in
+            .scan((0, [])) { (accum: (Int, [AXUIElement]), table: AXUIElement?) in
                 let (processedCount, _): (Int, _) = accum
                 guard let table: AXUIElement = table else {
                     return (processedCount, [])
                 }
                 
-                let newRows: ArraySlice<AXUIElement> = table.uiElements
+                let newRows: [AXUIElement] = table.uiElements
                     .dropFirst(processedCount)
+                    .reduce([]) { (accumRows: [AXUIElement], row: AXUIElement) in
+                        // Rows with an x position of 0 seems to indicate a row before which all rows should be ignored?
+                        row.uiElements.first?.position?.x == 0.0
+                        ? [ row ]
+                        : accumRows + [ row ]
+                    }
                 
-                return (processedCount + newRows.count, newRows)
+                return (table.uiElements.count, newRows)
             }
             .concatMap { Observable.from($0.1) }
     }
