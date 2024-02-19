@@ -6,7 +6,8 @@ private let intervalFormatter: DateComponentsFormatter = {
     let f = DateComponentsFormatter()
     f.unitsStyle = .full
     f.allowedUnits = [.month, .day, .hour, .minute, .second]
-    f.maximumUnitCount = 3
+    f.zeroFormattingBehavior = .dropLeading
+    f.maximumUnitCount = 4
     
     return f
 }()
