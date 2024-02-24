@@ -122,37 +122,40 @@ struct ZoomChatPublisher {
     }
     
     private func zoomUIChatTextFromRow(row: AXUIElement) -> [ZoomUIChatTextCell] {
-        enum ChatRawElement {
-            case text(value: String)
-            case isMetadata
-        }
-        
         // Look in macOS system log to see what each row looks like
         // Note also that this may change with new versions of Zoom
         os_log("Chat rows layout:\n%{public}s", row.layoutDescription)
         
+        // Key information we are extracting:
+        // - Routes ("Bob to Everyone", "You to Everyone", "Bob to You")
+        // - Message text
+        //
+        // These have role=kAXUnknownRoles, and fixed heights of:
+        // - Routes: 15.0
+        // - Message texts: multiple of 16.0
+        //
+        // Of note, we sometimes see participant information ("Bob has joined")
+        // that also have role=kAXUnknownRoles, however these have a height that
+        // is a multiple of 13.0
+        let routeHeight: CGFloat = 15.0
+        let textHeight: CGFloat = 16.0
         return row.uiElements.first?.uiElements
-            .compactMap {
-                switch $0.role {
-                case kAXUnknownRole: return $0.value.map { .text(value: $0) }
-                case kAXStaticTextRole: return .isMetadata // Chat time - indicates previous element is metadata
-                default: return nil
+            .compactMap { (cell: AXUIElement) -> ZoomUIChatTextCell? in
+                guard 
+                    cell.role == kAXUnknownRole,
+                    let cellHeight: CGFloat = cell.size?.height
+                else {
+                    return nil
                 }
-            }
-            .reversed()
-            .reduce(
-                (false, [])
-            ) { (accum: (Bool, [ZoomUIChatTextCell]), nextElem: ChatRawElement) in
-                let (isRoute, chatTexts): (Bool, [ZoomUIChatTextCell]) = accum
                 
-                switch nextElem {
-                case let .text(value):
-                    return (false, [ isRoute ? .route(value) : .text(value) ] + chatTexts)
-                case .isMetadata:
-                    return (true, chatTexts)
+                if cellHeight.truncatingRemainder(dividingBy: textHeight) == 0 {
+                    return cell.value.map { .text($0) }
+                } else if cellHeight == routeHeight {
+                    return cell.value.map { .route($0) }
+                } else {
+                    return nil
                 }
-            }
-            .1 ?? []
+            } ?? []
     }
     
     func scrapeAndPublishChatMessages() -> Observable<Result<PublishEvent, PublishError>> {
