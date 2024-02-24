@@ -138,13 +138,15 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
     }
     
     private func writeProcessStatistics(_ model: Model, terminalSize: Size) {
-        let messageTextMaxWidth: Int = 29
+        let separator: String = "  "
+        let separatorWidth: Int = separator.count
+        let messageTextMaxWidth: Int = "Messages Published: ####/####".count
         let uptimeText: String = {
             let full: String = intervalFormatter
                 .string(from: model.startTime, to: Date())
                 .map { " Up " + $0 } ?? "Since Process Start"
             let uptimeTextWidth: Int = max(
-                terminalSize.width - messageTextMaxWidth - 3, 0
+                terminalSize.width - messageTextMaxWidth - separatorWidth, 0
             )
             
             if uptimeTextWidth == 0 {
@@ -160,7 +162,7 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
         let messagesText: String = {
             let fullPrefix: String = "Messages Published"
             let prefix: String
-            if terminalSize.width - 3 < messageTextMaxWidth {
+            if terminalSize.width - separatorWidth < messageTextMaxWidth {
                 prefix = fullPrefix.dropLast(max(messageTextMaxWidth - terminalSize.width + 4, 0)) + "…"
             } else {
                 prefix = fullPrefix
@@ -171,7 +173,7 @@ struct CursesView<TerminalSizes: Observable<Size>>: View {
         
         mainWindow.cursor.position = Point(x: 0, y: terminalSize.height - 1)
         mainWindow.write(
-            "\(uptimeText) | \(messagesText)".padding(
+            "\(uptimeText)\(separator)\(messagesText)".padding(
                 toLength: terminalSize.width, withPad: " ", startingAt: 0
             ),
             attribute: metadataAttribute
