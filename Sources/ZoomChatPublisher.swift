@@ -126,19 +126,24 @@ struct ZoomChatPublisher {
         // Note also that this may change with new versions of Zoom
         os_log("Chat rows layout:\n%{public}s", row.layoutDescription)
         
-        // Key information we are extracting:
+        // Information we are interested in:
         // - Routes ("Bob to Everyone", "You to Everyone", "Bob to You")
         // - Message text
+        // We are not interested in:
+        // - System announcements, e.g.,
+        //   - "Bob has joined"
+        //   - "Messages addressed to "Meeting Group Chat" will also appear in the
+        //      meeting group chat in Team Chat"
         //
         // These have role=kAXUnknownRoles, and fixed heights of:
         // - Routes: 15.0
-        // - Message texts: multiple of 16.0
-        //
-        // Of note, we sometimes see participant information ("Bob has joined")
-        // that also have role=kAXUnknownRoles, however these have a height that
-        // is a multiple of 13.0
+        // - System announcements: 13.0 per line (hopefully no more than 2 lines)
+        // - Text:
+        //   - Typically 16.0 per line
+        //   - Text with Emoji are 21.0 per line
+        //   - Emoji only text are 39.0 per line (which is 13.0 x 3)
         let routeHeight: CGFloat = 15.0
-        let textHeight: CGFloat = 16.0
+        let announcementHeights: Set<CGFloat> = [13.0, 26.0]
         return row.uiElements.first?.uiElements
             .compactMap { (cell: AXUIElement) -> ZoomUIChatTextCell? in
                 guard 
@@ -148,12 +153,12 @@ struct ZoomChatPublisher {
                     return nil
                 }
                 
-                if cellHeight.truncatingRemainder(dividingBy: textHeight) == 0 {
-                    return cell.value.map { .text($0) }
+                if announcementHeights.contains(cellHeight) {
+                    return nil
                 } else if cellHeight == routeHeight {
                     return cell.value.map { .route($0) }
                 } else {
-                    return nil
+                    return cell.value.map { .text($0) }
                 }
             } ?? []
     }
