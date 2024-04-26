@@ -137,23 +137,37 @@ struct ZoomChatPublisher {
         //
         // These have role=kAXUnknownRoles, and fixed heights of:
         // - Routes: 15.0
-        // - System announcements: 13.0 per line (hopefully no more than 2 lines)
+        // - System announcements: 13.0 per line
         // - Text:
         //   - Typically 16.0 per line
         //   - Text with Emoji are 21.0 per line
-        //   - Emoji only text are 39.0 per line (which is 13.0 x 3)
+        //   - Emoji-only text are 39.0 per line
+        // Note that 3-line system announcements and Emoji-only text are both
+        // multiples of 39.0. However, route and text have dynamic widths no
+        // wider than (row width - 140), whereas system announcement widths
+        // typically exceed that.
         let routeHeight: CGFloat = 15.0
-        let announcementHeights: Set<CGFloat> = [13.0, 26.0]
+        let announcementLineHeight: CGFloat = 13.0
+        let routeTextMinPadWidth: CGFloat = 140
         return row.uiElements.first?.uiElements
             .compactMap { (cell: AXUIElement) -> ZoomUIChatTextCell? in
-                guard 
+                guard
                     cell.role == kAXUnknownRole,
+                    let rowWidth: CGFloat = row.size?.width,
+                    let cellWidth: CGFloat = cell.size?.width,
                     let cellHeight: CGFloat = cell.size?.height
                 else {
                     return nil
                 }
                 
-                if announcementHeights.contains(cellHeight) {
+                if
+                    cellHeight == announcementLineHeight || (
+                        cellHeight.truncatingRemainder(
+                            dividingBy: announcementLineHeight
+                        ) == 0 &&
+                        rowWidth - cellWidth < routeTextMinPadWidth
+                    )
+                {
                     return nil
                 } else if cellHeight == routeHeight {
                     return cell.value.map { .route($0) }
@@ -185,9 +199,7 @@ struct ZoomChatPublisher {
                             $0 != nil ? .success(.noOp) : .failure(.chatNotOpen)
                         }
                     let publishes: Observable<Result<PublishEvent, PublishError>> = chatRows(chatTables: chatTables)
-                        .map { row -> Result<AXUIElement, PublishError> in
-                            .success(row)
-                        }
+                        .map { row -> Result<AXUIElement, PublishError> in .success(row) }
                         .concatMap {
                             (
                                 rowResult: Result<AXUIElement, PublishError>
