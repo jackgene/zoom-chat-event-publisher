@@ -8,10 +8,10 @@ let package = Package(
     platforms: [.macOS(.v10_13)],
     dependencies: [
         .package(url: "https://github.com/adorkable/swift-log-format-and-pipe.git", exact: "0.1.1"),
-        .package(url: "https://github.com/apple/swift-argument-parser", exact: "1.2.2"),
-        .package(url: "https://github.com/apple/swift-log.git", exact: "1.5.2"),
+        .package(url: "https://github.com/apple/swift-argument-parser", exact: "1.4.0"),
+        .package(url: "https://github.com/apple/swift-log.git", exact: "1.6.1"),
         .package(url: "https://github.com/jackgene/Curses.git", exact: "1.0.4"),
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", exact: "6.6.0"),
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", exact: "6.7.1"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
