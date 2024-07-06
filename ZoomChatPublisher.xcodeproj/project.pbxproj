@@ -15,6 +15,21 @@
 		04C8A3662C39DD6F00CE2CAF /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A3652C39DD6F00CE2CAF /* ArgumentParser */; };
 		04C8A3692C39DD9200CE2CAF /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A3682C39DD9200CE2CAF /* Logging */; };
 		04C8A36C2C39DDAF00CE2CAF /* Curses in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A36B2C39DDAF00CE2CAF /* Curses */; };
+		04C8A3792C39DE4200CE2CAF /* AXUIElement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A36D2C39DE4200CE2CAF /* AXUIElement+Extensions.swift */; };
+		04C8A37A2C39DE4200CE2CAF /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A36F2C39DE4200CE2CAF /* ChatMessage.swift */; };
+		04C8A37B2C39DE4200CE2CAF /* PublishAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3702C39DE4200CE2CAF /* PublishAttempt.swift */; };
+		04C8A37C2C39DE4200CE2CAF /* PublishError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3712C39DE4200CE2CAF /* PublishError.swift */; };
+		04C8A37D2C39DE4200CE2CAF /* PublishEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3722C39DE4200CE2CAF /* PublishEvent.swift */; };
+		04C8A37E2C39DE4200CE2CAF /* MeetingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3742C39DE4200CE2CAF /* MeetingStatus.swift */; };
+		04C8A37F2C39DE4200CE2CAF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3752C39DE4200CE2CAF /* Model.swift */; };
+		04C8A3802C39DE4200CE2CAF /* ZoomApplicationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3762C39DE4200CE2CAF /* ZoomApplicationStatus.swift */; };
+		04C8A3812C39DE4200CE2CAF /* ZoomChatPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3782C39DE4200CE2CAF /* ZoomChatPublisher.swift */; };
+		04C8A38A2C39DE5800CE2CAF /* CursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3822C39DE5800CE2CAF /* CursesView.swift */; };
+		04C8A38B2C39DE5800CE2CAF /* LoggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3832C39DE5800CE2CAF /* LoggingView.swift */; };
+		04C8A38C2C39DE5800CE2CAF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3842C39DE5800CE2CAF /* View.swift */; };
+		04C8A38D2C39DE5800CE2CAF /* Curses+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3862C39DE5800CE2CAF /* Curses+Extensions.swift */; };
+		04C8A38E2C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3872C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift */; };
+		04C8A38F2C39DE5800CE2CAF /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3892C39DE5800CE2CAF /* Main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +68,21 @@
 /* Begin PBXFileReference section */
 		04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZoomChatPublisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C8A34F2C39DB1A00CE2CAF /* CLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CLI; sourceTree = BUILT_PRODUCTS_DIR; };
+		04C8A36D2C39DE4200CE2CAF /* AXUIElement+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AXUIElement+Extensions.swift"; sourceTree = "<group>"; };
+		04C8A36F2C39DE4200CE2CAF /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		04C8A3702C39DE4200CE2CAF /* PublishAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishAttempt.swift; sourceTree = "<group>"; };
+		04C8A3712C39DE4200CE2CAF /* PublishError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishError.swift; sourceTree = "<group>"; };
+		04C8A3722C39DE4200CE2CAF /* PublishEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishEvent.swift; sourceTree = "<group>"; };
+		04C8A3742C39DE4200CE2CAF /* MeetingStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingStatus.swift; sourceTree = "<group>"; };
+		04C8A3752C39DE4200CE2CAF /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		04C8A3762C39DE4200CE2CAF /* ZoomApplicationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomApplicationStatus.swift; sourceTree = "<group>"; };
+		04C8A3782C39DE4200CE2CAF /* ZoomChatPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomChatPublisher.swift; sourceTree = "<group>"; };
+		04C8A3822C39DE5800CE2CAF /* CursesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursesView.swift; sourceTree = "<group>"; };
+		04C8A3832C39DE5800CE2CAF /* LoggingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingView.swift; sourceTree = "<group>"; };
+		04C8A3842C39DE5800CE2CAF /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		04C8A3862C39DE5800CE2CAF /* Curses+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Curses+Extensions.swift"; sourceTree = "<group>"; };
+		04C8A3872C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLComponents+ExpressibleByArgument.swift"; sourceTree = "<group>"; };
+		04C8A3892C39DE5800CE2CAF /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +132,10 @@
 		04C8A3432C39DAE800CE2CAF /* ZoomChatPublisher */ = {
 			isa = PBXGroup;
 			children = (
+				04C8A36E2C39DE4200CE2CAF /* Extension */,
+				04C8A3732C39DE4200CE2CAF /* Model */,
+				04C8A3772C39DE4200CE2CAF /* View */,
+				04C8A3782C39DE4200CE2CAF /* ZoomChatPublisher.swift */,
 			);
 			path = ZoomChatPublisher;
 			sourceTree = "<group>";
@@ -109,6 +143,9 @@
 		04C8A3502C39DB1A00CE2CAF /* CLI */ = {
 			isa = PBXGroup;
 			children = (
+				04C8A3882C39DE5800CE2CAF /* Extension */,
+				04C8A3852C39DE5800CE2CAF /* View */,
+				04C8A3892C39DE5800CE2CAF /* Main.swift */,
 			);
 			path = CLI;
 			sourceTree = "<group>";
@@ -118,6 +155,54 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		04C8A36E2C39DE4200CE2CAF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				04C8A36D2C39DE4200CE2CAF /* AXUIElement+Extensions.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		04C8A3732C39DE4200CE2CAF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04C8A36F2C39DE4200CE2CAF /* ChatMessage.swift */,
+				04C8A3702C39DE4200CE2CAF /* PublishAttempt.swift */,
+				04C8A3712C39DE4200CE2CAF /* PublishError.swift */,
+				04C8A3722C39DE4200CE2CAF /* PublishEvent.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04C8A3772C39DE4200CE2CAF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04C8A3742C39DE4200CE2CAF /* MeetingStatus.swift */,
+				04C8A3752C39DE4200CE2CAF /* Model.swift */,
+				04C8A3762C39DE4200CE2CAF /* ZoomApplicationStatus.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04C8A3852C39DE5800CE2CAF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04C8A3822C39DE5800CE2CAF /* CursesView.swift */,
+				04C8A3832C39DE5800CE2CAF /* LoggingView.swift */,
+				04C8A3842C39DE5800CE2CAF /* View.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04C8A3882C39DE5800CE2CAF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				04C8A3862C39DE5800CE2CAF /* Curses+Extensions.swift */,
+				04C8A3872C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,9 +277,11 @@
 				TargetAttributes = {
 					04C8A3402C39DAE800CE2CAF = {
 						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
 					};
 					04C8A34E2C39DB1A00CE2CAF = {
 						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -239,6 +326,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C8A37F2C39DE4200CE2CAF /* Model.swift in Sources */,
+				04C8A3792C39DE4200CE2CAF /* AXUIElement+Extensions.swift in Sources */,
+				04C8A37A2C39DE4200CE2CAF /* ChatMessage.swift in Sources */,
+				04C8A3802C39DE4200CE2CAF /* ZoomApplicationStatus.swift in Sources */,
+				04C8A3812C39DE4200CE2CAF /* ZoomChatPublisher.swift in Sources */,
+				04C8A37C2C39DE4200CE2CAF /* PublishError.swift in Sources */,
+				04C8A37E2C39DE4200CE2CAF /* MeetingStatus.swift in Sources */,
+				04C8A37B2C39DE4200CE2CAF /* PublishAttempt.swift in Sources */,
+				04C8A37D2C39DE4200CE2CAF /* PublishEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +342,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C8A38F2C39DE5800CE2CAF /* Main.swift in Sources */,
+				04C8A38E2C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift in Sources */,
+				04C8A38B2C39DE5800CE2CAF /* LoggingView.swift in Sources */,
+				04C8A38A2C39DE5800CE2CAF /* CursesView.swift in Sources */,
+				04C8A38D2C39DE5800CE2CAF /* Curses+Extensions.swift in Sources */,
+				04C8A38C2C39DE5800CE2CAF /* View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +490,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -412,6 +515,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -420,6 +524,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -451,8 +556,10 @@
 		04C8A3542C39DB1A00CE2CAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -460,6 +567,7 @@
 		04C8A3552C39DB1A00CE2CAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
