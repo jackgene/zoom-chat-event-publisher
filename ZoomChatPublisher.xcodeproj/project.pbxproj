@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		04C8A3572C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; };
 		04C8A3582C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04C8A35E2C39DD2300CE2CAF /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A35D2C39DD2300CE2CAF /* RxCocoa */; };
+		04C8A3602C39DD2300CE2CAF /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A35F2C39DD2300CE2CAF /* RxSwift */; };
+		04C8A3632C39DD4B00CE2CAF /* LoggingFormatAndPipe in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A3622C39DD4B00CE2CAF /* LoggingFormatAndPipe */; };
+		04C8A3662C39DD6F00CE2CAF /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A3652C39DD6F00CE2CAF /* ArgumentParser */; };
+		04C8A3692C39DD9200CE2CAF /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A3682C39DD9200CE2CAF /* Logging */; };
+		04C8A36C2C39DDAF00CE2CAF /* Curses in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A36B2C39DDAF00CE2CAF /* Curses */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C8A3602C39DD2300CE2CAF /* RxSwift in Frameworks */,
+				04C8A35E2C39DD2300CE2CAF /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +69,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C8A36C2C39DDAF00CE2CAF /* Curses in Frameworks */,
+				04C8A3662C39DD6F00CE2CAF /* ArgumentParser in Frameworks */,
 				04C8A3572C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Frameworks */,
+				04C8A3692C39DD9200CE2CAF /* Logging in Frameworks */,
+				04C8A3632C39DD4B00CE2CAF /* LoggingFormatAndPipe in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +147,10 @@
 			dependencies = (
 			);
 			name = ZoomChatPublisher;
+			packageProductDependencies = (
+				04C8A35D2C39DD2300CE2CAF /* RxCocoa */,
+				04C8A35F2C39DD2300CE2CAF /* RxSwift */,
+			);
 			productName = ZoomChatPublisher;
 			productReference = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */;
 			productType = "com.apple.product-type.framework";
@@ -154,6 +170,12 @@
 				04C8A35A2C39DC2F00CE2CAF /* PBXTargetDependency */,
 			);
 			name = CLI;
+			packageProductDependencies = (
+				04C8A3622C39DD4B00CE2CAF /* LoggingFormatAndPipe */,
+				04C8A3652C39DD6F00CE2CAF /* ArgumentParser */,
+				04C8A3682C39DD9200CE2CAF /* Logging */,
+				04C8A36B2C39DDAF00CE2CAF /* Curses */,
+			);
 			productName = CLI;
 			productReference = 04C8A34F2C39DB1A00CE2CAF /* CLI */;
 			productType = "com.apple.product-type.tool";
@@ -185,6 +207,13 @@
 				Base,
 			);
 			mainGroup = 04C8A3372C39DAE800CE2CAF;
+			packageReferences = (
+				04C8A35C2C39DD2300CE2CAF /* XCRemoteSwiftPackageReference "RxSwift" */,
+				04C8A3612C39DD4B00CE2CAF /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */,
+				04C8A3642C39DD6F00CE2CAF /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+				04C8A3672C39DD9200CE2CAF /* XCRemoteSwiftPackageReference "swift-log" */,
+				04C8A36A2C39DDAF00CE2CAF /* XCRemoteSwiftPackageReference "Curses" */,
+			);
 			productRefGroup = 04C8A3422C39DAE800CE2CAF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -468,6 +497,82 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		04C8A35C2C39DD2300CE2CAF /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 6.7.1;
+			};
+		};
+		04C8A3612C39DD4B00CE2CAF /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adorkable/swift-log-format-and-pipe.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.1.1;
+			};
+		};
+		04C8A3642C39DD6F00CE2CAF /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.4.0;
+			};
+		};
+		04C8A3672C39DD9200CE2CAF /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.6.1;
+			};
+		};
+		04C8A36A2C39DDAF00CE2CAF /* XCRemoteSwiftPackageReference "Curses" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jackgene/Curses.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		04C8A35D2C39DD2300CE2CAF /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04C8A35C2C39DD2300CE2CAF /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		04C8A35F2C39DD2300CE2CAF /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04C8A35C2C39DD2300CE2CAF /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		04C8A3622C39DD4B00CE2CAF /* LoggingFormatAndPipe */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04C8A3612C39DD4B00CE2CAF /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */;
+			productName = LoggingFormatAndPipe;
+		};
+		04C8A3652C39DD6F00CE2CAF /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04C8A3642C39DD6F00CE2CAF /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+		04C8A3682C39DD9200CE2CAF /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04C8A3672C39DD9200CE2CAF /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		04C8A36B2C39DDAF00CE2CAF /* Curses */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04C8A36A2C39DDAF00CE2CAF /* XCRemoteSwiftPackageReference "Curses" */;
+			productName = Curses;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 04C8A3382C39DAE800CE2CAF /* Project object */;
 }

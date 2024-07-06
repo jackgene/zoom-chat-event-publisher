@@ -1,0 +1,51 @@
+{
+  "originHash" : "ac8c830d92b4784cc8cdb3db7c08c0e9e90398c721cb9e6ff40d509613b03519",
+  "pins" : [
+    {
+      "identity" : "curses",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jackgene/Curses.git",
+      "state" : {
+        "revision" : "ce5bc395a2c6115de4683e2e368f7b6fca4716fd",
+        "version" : "1.0.4"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift.git",
+      "state" : {
+        "revision" : "b06a8c8596e4c3e8e7788e08e720e3248563ce6a",
+        "version" : "6.7.1"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "0fbc8848e389af3bb55c182bc19ca9d5dc2f255b",
+        "version" : "1.4.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
+        "version" : "1.6.1"
+      }
+    },
+    {
+      "identity" : "swift-log-format-and-pipe",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adorkable/swift-log-format-and-pipe.git",
+      "state" : {
+        "revision" : "bd29badb9e6b18122ec10b84eed534db83cad279",
+        "version" : "0.1.1"
+      }
+    }
+  ],
+  "version" : 3
+}
