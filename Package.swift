@@ -16,16 +16,24 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
-        .executableTarget(
-            name: "zoom-chat-publisher",
+        .target(
+            name: "ZoomChatPublisher",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                .product(name: "Curses", package: "Curses"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "LoggingFormatAndPipe", package: "swift-log-format-and-pipe"),
                 .product(name: "RxCocoa", package: "RxSwift"),
                 .product(name: "RxSwift", package: "RxSwift"),
             ],
-            path: "Sources"),
+            path: "ZoomChatPublisher"
+        ),
+        .executableTarget(
+            name: "zoom-chat-publisher",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .product(name: "Curses", package: "Curses"),
+                .target(name: "ZoomChatPublisher"),
+            ],
+            path: "CLI"
+        ),
     ]
 )

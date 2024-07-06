@@ -1,4 +1,5 @@
 import RxSwift
+import ZoomChatPublisher
 
 /// View renderer operations
 protocol View {

@@ -4,6 +4,7 @@ import Foundation
 import Logging
 import LoggingFormatAndPipe
 import RxSwift
+import ZoomChatPublisher
 
 @main
 struct Main: ParsableCommand {

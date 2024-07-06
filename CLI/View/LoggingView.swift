@@ -1,6 +1,7 @@
 import Foundation
 import Logging
 import RxSwift
+import ZoomChatPublisher
 
 /// View that simply logs events to the console.
 struct LoggingView: View {

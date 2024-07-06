@@ -1,6 +1,7 @@
 import Curses
 import Foundation
 import RxSwift
+import ZoomChatPublisher
 
 private let intervalFormatter: DateComponentsFormatter = {
     let f = DateComponentsFormatter()

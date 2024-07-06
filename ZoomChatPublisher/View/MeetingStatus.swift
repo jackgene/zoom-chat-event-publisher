@@ -1,5 +1,5 @@
 /// Is a meeting ongoing?
-enum MeetingStatus {
+public enum MeetingStatus {
     case inProgress(chatOpen: Bool)
     case notInProgress
 }

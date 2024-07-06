@@ -1,5 +1,5 @@
 /// Is the Zoom process running?
-enum ZoomApplicationStatus {
+public enum ZoomApplicationStatus {
     case running(meeting: MeetingStatus)
     case notRunning
 }

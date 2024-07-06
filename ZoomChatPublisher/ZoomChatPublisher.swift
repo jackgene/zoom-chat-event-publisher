@@ -3,10 +3,14 @@ import RxCocoa
 import RxSwift
 import os
 
-struct ZoomChatPublisher {
+public struct ZoomChatPublisher {
     private let scheduler: SchedulerType = SerialDispatchQueueScheduler(qos: .default)
     private let urlSession: URLSession = URLSession.shared
     let destinationURL: URLComponents
+    
+    public init(destinationURL: URLComponents) {
+        self.destinationURL = destinationURL
+    }
     
     /// A single line of text in the Zoom chat window, which may be:
     /// - A route indicate the sender and recipient (e.g., "Me to Everyone", "Chatty Chad to Me")
@@ -177,7 +181,7 @@ struct ZoomChatPublisher {
             } ?? []
     }
     
-    func scrapeAndPublishChatMessages() -> Observable<Result<PublishEvent, PublishError>> {
+    public func scrapeAndPublishChatMessages() -> Observable<Result<PublishEvent, PublishError>> {
         Observable<Int>
             .timer(.seconds(0), period: .seconds(1), scheduler: scheduler)
             .map { _ -> Result<AXUIElement, PublishError> in
