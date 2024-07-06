@@ -6,6 +6,21 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		04C8A3572C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; };
+		04C8A3582C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		04C8A3592C39DC2F00CE2CAF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04C8A3382C39DAE800CE2CAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04C8A3402C39DAE800CE2CAF;
+			remoteInfo = ZoomChatPublisher;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		04C8A34D2C39DB1A00CE2CAF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -15,6 +30,17 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		04C8A35B2C39DC2F00CE2CAF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				04C8A3582C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -35,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C8A3572C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +74,7 @@
 				04C8A3502C39DB1A00CE2CAF /* CLI */,
 				04C8A3432C39DAE800CE2CAF /* ZoomChatPublisher */,
 				04C8A3422C39DAE800CE2CAF /* Products */,
+				04C8A3562C39DC2F00CE2CAF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +99,13 @@
 			children = (
 			);
 			path = CLI;
+			sourceTree = "<group>";
+		};
+		04C8A3562C39DC2F00CE2CAF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,10 +146,12 @@
 				04C8A34B2C39DB1A00CE2CAF /* Sources */,
 				04C8A34C2C39DB1A00CE2CAF /* Frameworks */,
 				04C8A34D2C39DB1A00CE2CAF /* CopyFiles */,
+				04C8A35B2C39DC2F00CE2CAF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				04C8A35A2C39DC2F00CE2CAF /* PBXTargetDependency */,
 			);
 			name = CLI;
 			productName = CLI;
@@ -184,6 +221,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		04C8A35A2C39DC2F00CE2CAF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04C8A3402C39DAE800CE2CAF /* ZoomChatPublisher */;
+			targetProxy = 04C8A3592C39DC2F00CE2CAF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		04C8A3462C39DAE800CE2CAF /* Debug */ = {
