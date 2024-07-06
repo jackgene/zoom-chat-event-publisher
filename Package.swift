@@ -19,8 +19,6 @@ let package = Package(
         .target(
             name: "ZoomChatPublisher",
             dependencies: [
-                .product(name: "Logging", package: "swift-log"),
-                .product(name: "LoggingFormatAndPipe", package: "swift-log-format-and-pipe"),
                 .product(name: "RxCocoa", package: "RxSwift"),
                 .product(name: "RxSwift", package: "RxSwift"),
             ],
@@ -31,6 +29,8 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "Curses", package: "Curses"),
+                .product(name: "Logging", package: "swift-log"),
+                .product(name: "LoggingFormatAndPipe", package: "swift-log-format-and-pipe"),
                 .target(name: "ZoomChatPublisher"),
             ],
             path: "CLI"
