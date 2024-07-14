@@ -34,10 +34,19 @@
 		04C8A3AC2C442A8600CE2CAF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3AB2C442A8600CE2CAF /* ViewController.swift */; };
 		04C8A3AE2C442A8700CE2CAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C8A3AD2C442A8700CE2CAF /* Assets.xcassets */; };
 		04C8A3B12C442A8700CE2CAF /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04C8A3B02C442A8700CE2CAF /* Base */; };
+		04C8A3B62C44359100CE2CAF /* ZoomChatPublisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; };
+		04C8A3B72C44359100CE2CAF /* ZoomChatPublisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		04C8A3592C39DC2F00CE2CAF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04C8A3382C39DAE800CE2CAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04C8A3402C39DAE800CE2CAF;
+			remoteInfo = ZoomChatPublisher;
+		};
+		04C8A3B82C44359100CE2CAF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 04C8A3382C39DAE800CE2CAF /* Project object */;
 			proxyType = 1;
@@ -63,6 +72,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				04C8A3582C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04C8A3BA2C44359100CE2CAF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				04C8A3B72C44359100CE2CAF /* ZoomChatPublisher.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C8A3B62C44359100CE2CAF /* ZoomChatPublisher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,10 +324,12 @@
 				04C8A3A32C442A8600CE2CAF /* Sources */,
 				04C8A3A42C442A8600CE2CAF /* Frameworks */,
 				04C8A3A52C442A8600CE2CAF /* Resources */,
+				04C8A3BA2C44359100CE2CAF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				04C8A3B92C44359100CE2CAF /* PBXTargetDependency */,
 			);
 			name = App;
 			productName = App;
@@ -428,6 +451,11 @@
 			isa = PBXTargetDependency;
 			target = 04C8A3402C39DAE800CE2CAF /* ZoomChatPublisher */;
 			targetProxy = 04C8A3592C39DC2F00CE2CAF /* PBXContainerItemProxy */;
+		};
+		04C8A3B92C44359100CE2CAF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04C8A3402C39DAE800CE2CAF /* ZoomChatPublisher */;
+			targetProxy = 04C8A3B82C44359100CE2CAF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
