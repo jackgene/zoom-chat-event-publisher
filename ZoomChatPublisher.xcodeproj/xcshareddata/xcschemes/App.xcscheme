@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04C8A3A62C442A8600CE2CAF"
-               BuildableName = "App.app"
+               BuildableName = "Zoom Chat Publisher.app"
                BlueprintName = "App"
                ReferencedContainer = "container:ZoomChatPublisher.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04C8A3A62C442A8600CE2CAF"
-            BuildableName = "App.app"
+            BuildableName = "Zoom Chat Publisher.app"
             BlueprintName = "App"
             ReferencedContainer = "container:ZoomChatPublisher.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04C8A3A62C442A8600CE2CAF"
-            BuildableName = "App.app"
+            BuildableName = "Zoom Chat Publisher.app"
             BlueprintName = "App"
             ReferencedContainer = "container:ZoomChatPublisher.xcodeproj">
          </BuildableReference>
