@@ -87,7 +87,7 @@
 		04C8A3862C39DE5800CE2CAF /* Curses+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Curses+Extensions.swift"; sourceTree = "<group>"; };
 		04C8A3872C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLComponents+ExpressibleByArgument.swift"; sourceTree = "<group>"; };
 		04C8A3892C39DE5800CE2CAF /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
-		04C8A3A72C442A8600CE2CAF /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04C8A3A72C442A8600CE2CAF /* Zoom Chat Publisher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zoom Chat Publisher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C8A3A92C442A8600CE2CAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04C8A3AB2C442A8600CE2CAF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		04C8A3AD2C442A8700CE2CAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 			children = (
 				04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */,
 				04C8A34F2C39DB1A00CE2CAF /* CLI */,
-				04C8A3A72C442A8600CE2CAF /* App.app */,
+				04C8A3A72C442A8600CE2CAF /* Zoom Chat Publisher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -310,7 +310,7 @@
 			);
 			name = App;
 			productName = App;
-			productReference = 04C8A3A72C442A8600CE2CAF /* App.app */;
+			productReference = 04C8A3A72C442A8600CE2CAF /* Zoom Chat Publisher.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -665,6 +665,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Zoom Chat Publisher";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -675,7 +677,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jackleow.App;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Zoom Chat Publisher";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -691,6 +693,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Zoom Chat Publisher";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -701,7 +705,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jackleow.App;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Zoom Chat Publisher";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
