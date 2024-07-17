@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
@@ -23,7 +23,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <action selector="showSettingsWindow:" target="Voe-Tx-rLC" id="aPa-mi-Yhk"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -71,9 +75,9 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                <windowController storyboardIdentifier="settingsWindowController" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -89,18 +93,75 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Zoom_Chat_Publisher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="SettingsViewController" customModule="Zoom_Chat_Publisher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="42"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oeE-on-pbM">
+                                <rect key="frame" x="18" y="22" width="86" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Receiver URL" id="vZS-8M-YUi">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lDy-wg-veG">
+                                <rect key="frame" x="110" y="19" width="350" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="http://localhost:8973/chat" drawsBackground="YES" id="PvO-GQ-9U9">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="jMG-8A-shb">
+                                <rect key="frame" x="442" y="23" width="13" height="13"/>
+                                <subviews>
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8z4-5F-LDo">
+                                        <rect key="frame" x="-1" y="0.0" width="15" height="13"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Ⅹ" drawsBackground="YES" id="oqt-Yc-jOy">
+                                            <font key="font" metaFont="systemSemibold" size="10"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="8z4-5F-LDo" firstAttribute="centerX" secondItem="jMG-8A-shb" secondAttribute="centerX" id="3Bg-EJ-gVP"/>
+                                    <constraint firstAttribute="height" constant="13" id="4Jk-84-H2A"/>
+                                    <constraint firstAttribute="width" constant="13" id="8dQ-1B-YSl"/>
+                                    <constraint firstItem="8z4-5F-LDo" firstAttribute="centerY" secondItem="jMG-8A-shb" secondAttribute="centerY" id="93e-pM-GY5"/>
+                                    <constraint firstItem="8z4-5F-LDo" firstAttribute="height" secondItem="jMG-8A-shb" secondAttribute="height" id="gZN-Ln-x3K"/>
+                                    <constraint firstItem="8z4-5F-LDo" firstAttribute="width" secondItem="jMG-8A-shb" secondAttribute="width" multiplier="1.15385" id="xRv-Iw-hwO"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="oeE-on-pbM" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="2D3-U3-hkr"/>
+                            <constraint firstItem="jMG-8A-shb" firstAttribute="centerY" secondItem="lDy-wg-veG" secondAttribute="centerY" id="3Je-ii-Gvu"/>
+                            <constraint firstItem="oeE-on-pbM" firstAttribute="baseline" secondItem="lDy-wg-veG" secondAttribute="baseline" id="5iE-jA-J4Y"/>
+                            <constraint firstItem="lDy-wg-veG" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="2" id="R4m-t0-CW3"/>
+                            <constraint firstAttribute="trailing" secondItem="lDy-wg-veG" secondAttribute="trailing" constant="20" symbolic="YES" id="XSr-L3-c9Z"/>
+                            <constraint firstItem="lDy-wg-veG" firstAttribute="leading" secondItem="oeE-on-pbM" secondAttribute="trailing" constant="8" symbolic="YES" id="d4q-5i-bk6"/>
+                            <constraint firstItem="jMG-8A-shb" firstAttribute="trailing" secondItem="lDy-wg-veG" secondAttribute="trailing" constant="-5" id="scc-bP-tSz"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="receiverURLError" destination="jMG-8A-shb" id="dNm-EO-e12"/>
+                        <outlet property="receiverURLField" destination="lDy-wg-veG" id="7cV-TN-w57"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="615"/>
         </scene>
     </scenes>
 </document>

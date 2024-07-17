@@ -31,11 +31,12 @@
 		04C8A38E2C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3872C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift */; };
 		04C8A38F2C39DE5800CE2CAF /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3892C39DE5800CE2CAF /* Main.swift */; };
 		04C8A3AA2C442A8600CE2CAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3A92C442A8600CE2CAF /* AppDelegate.swift */; };
-		04C8A3AC2C442A8600CE2CAF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3AB2C442A8600CE2CAF /* ViewController.swift */; };
+		04C8A3AC2C442A8600CE2CAF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3AB2C442A8600CE2CAF /* SettingsViewController.swift */; };
 		04C8A3AE2C442A8700CE2CAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C8A3AD2C442A8700CE2CAF /* Assets.xcassets */; };
 		04C8A3B12C442A8700CE2CAF /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04C8A3B02C442A8700CE2CAF /* Base */; };
 		04C8A3B62C44359100CE2CAF /* ZoomChatPublisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; };
 		04C8A3B72C44359100CE2CAF /* ZoomChatPublisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04C8A3D22C4805D000CE2CAF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3D12C4805D000CE2CAF /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,10 +110,11 @@
 		04C8A3892C39DE5800CE2CAF /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		04C8A3A72C442A8600CE2CAF /* Zoom Chat Publisher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zoom Chat Publisher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C8A3A92C442A8600CE2CAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		04C8A3AB2C442A8600CE2CAF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		04C8A3AB2C442A8600CE2CAF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		04C8A3AD2C442A8700CE2CAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04C8A3B02C442A8700CE2CAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04C8A3B22C442A8700CE2CAF /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
+		04C8A3D12C4805D000CE2CAF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,7 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				04C8A3A92C442A8600CE2CAF /* AppDelegate.swift */,
-				04C8A3AB2C442A8600CE2CAF /* ViewController.swift */,
+				04C8A3D12C4805D000CE2CAF /* Constants.swift */,
+				04C8A3AB2C442A8600CE2CAF /* SettingsViewController.swift */,
 				04C8A3AD2C442A8700CE2CAF /* Assets.xcassets */,
 				04C8A3AF2C442A8700CE2CAF /* Main.storyboard */,
 				04C8A3B22C442A8700CE2CAF /* App.entitlements */,
@@ -439,8 +442,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04C8A3AC2C442A8600CE2CAF /* ViewController.swift in Sources */,
+				04C8A3AC2C442A8600CE2CAF /* SettingsViewController.swift in Sources */,
 				04C8A3AA2C442A8600CE2CAF /* AppDelegate.swift in Sources */,
+				04C8A3D22C4805D000CE2CAF /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
