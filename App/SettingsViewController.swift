@@ -12,10 +12,11 @@ import RxSwift
 class SettingsViewController: NSViewController {
     @IBOutlet private var receiverURLField: NSTextField!
     @IBOutlet private var receiverURLError: NSView!
-    private lazy var disposeBag: DisposeBag = (
-        NSApp.delegate as! AppDelegate
-    ).disposeBag
-    
+    private lazy var disposeBag: DisposeBag = {
+        let appDelegate: AppDelegate = NSApp.delegate as! AppDelegate
+        return appDelegate.disposeBag
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
