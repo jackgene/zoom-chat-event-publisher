@@ -102,15 +102,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oeE-on-pbM">
-                                <rect key="frame" x="18" y="22" width="86" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Receiver URL" id="vZS-8M-YUi">
+                                <rect key="frame" x="18" y="22" width="99" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Subscriber URL" id="vZS-8M-YUi">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lDy-wg-veG">
-                                <rect key="frame" x="110" y="19" width="350" height="21"/>
+                                <rect key="frame" x="123" y="19" width="337" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="http://localhost:8973/chat" drawsBackground="YES" id="PvO-GQ-9U9">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -155,8 +155,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="receiverURLError" destination="jMG-8A-shb" id="dNm-EO-e12"/>
-                        <outlet property="receiverURLField" destination="lDy-wg-veG" id="7cV-TN-w57"/>
+                        <outlet property="subscriberURLError" destination="jMG-8A-shb" id="dNm-EO-e12"/>
+                        <outlet property="subscriberURLField" destination="lDy-wg-veG" id="7cV-TN-w57"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

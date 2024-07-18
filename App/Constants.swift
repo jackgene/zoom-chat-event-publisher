@@ -6,6 +6,6 @@
 //
 
 // Defaults
-let defaultReceiverURL = "http://localhost:8973/chat"
+let defaultSubscriberURL = "http://localhost:8973/chat"
 // Settings keys
-let receiverURLKey = "receiverURL"
+let subscriberURLKey = "subscriberURL"

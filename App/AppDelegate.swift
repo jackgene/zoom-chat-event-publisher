@@ -25,9 +25,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        if UserDefaults.standard.string(forKey: receiverURLKey) == nil {
+        if UserDefaults.standard.string(forKey: subscriberURLKey) == nil {
             UserDefaults.standard.setValue(
-                defaultReceiverURL, forKey: receiverURLKey
+                defaultSubscriberURL, forKey: subscriberURLKey
             )
             settingsWindowController.showWindow(self)
         }

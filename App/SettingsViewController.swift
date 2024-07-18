@@ -10,8 +10,8 @@ import RxCocoa
 import RxSwift
 
 class SettingsViewController: NSViewController {
-    @IBOutlet private var receiverURLField: NSTextField!
-    @IBOutlet private var receiverURLError: NSView!
+    @IBOutlet private var subscriberURLField: NSTextField!
+    @IBOutlet private var subscriberURLError: NSView!
     private lazy var disposeBag: DisposeBag = {
         let appDelegate: AppDelegate = NSApp.delegate as! AppDelegate
         return appDelegate.disposeBag
@@ -22,13 +22,13 @@ class SettingsViewController: NSViewController {
         
         if
             let url: String = UserDefaults.standard.string(
-                forKey: receiverURLKey
+                forKey: subscriberURLKey
             )
         {
-            receiverURLField.stringValue = url
+            subscriberURLField.stringValue = url
         }
         
-        let receiverURLs: Observable<String?> = receiverURLField.rx
+        let subscriberURLs: Observable<String?> = subscriberURLField.rx
             .text.orEmpty
             .map {
                 URL(string: $0)
@@ -43,16 +43,16 @@ class SettingsViewController: NSViewController {
                     }
             }
             .share()
-        receiverURLs
+        subscriberURLs
             .map { $0 != nil }
-            .bind(to: receiverURLError.rx.isHidden)
+            .bind(to: subscriberURLError.rx.isHidden)
             .disposed(by: disposeBag)
-        receiverURLs
+        subscriberURLs
             .debounce(.milliseconds(200), scheduler: MainScheduler.instance)
             .compactMap { $0 }
             .distinctUntilChanged()
             .bind {
-                UserDefaults.standard.setValue($0, forKey: receiverURLKey)
+                UserDefaults.standard.setValue($0, forKey: subscriberURLKey)
             }
             .disposed(by: disposeBag)
     }
