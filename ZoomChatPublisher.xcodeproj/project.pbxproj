@@ -708,7 +708,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jackleow.App;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jackleow.ZoomChatPublisher;
 				PRODUCT_NAME = "Zoom Chat Publisher";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -736,7 +736,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jackleow.App;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jackleow.ZoomChatPublisher;
 				PRODUCT_NAME = "Zoom Chat Publisher";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
