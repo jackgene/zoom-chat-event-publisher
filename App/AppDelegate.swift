@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  App
-//
-//  Created by Jack Leow on 7/14/24.
-//
-
 import Cocoa
 import RxSwift
 
