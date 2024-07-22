@@ -36,6 +36,7 @@ public struct ZoomChatPublisher {
     private func chatWindow(app: AXUIElement) -> AXUIElement? {
         app.windows.first {
             !($0.title ?? "").starts(with: "Zoom") && // "Zoom", "Zoom Meeting"
+            $0.title != "Settings" &&
             $0.uiElements.contains {
                 $0.role == kAXSplitGroupRole &&
                 $0.uiElements.contains {
