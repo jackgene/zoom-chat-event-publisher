@@ -1,4 +1,5 @@
 import Foundation
+import ZoomChatPublisher
 
 /// The ZoomChatPublisher application state
 public struct Model {

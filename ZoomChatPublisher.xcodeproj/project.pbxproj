@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04B837912C4ECA720082CB6D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3752C39DE4200CE2CAF /* Model.swift */; };
+		04B837922C4ECA720082CB6D /* MeetingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3742C39DE4200CE2CAF /* MeetingStatus.swift */; };
+		04B837932C4ECA720082CB6D /* ZoomApplicationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3762C39DE4200CE2CAF /* ZoomApplicationStatus.swift */; };
 		04C8A3572C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; };
 		04C8A3582C39DC2F00CE2CAF /* ZoomChatPublisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04C8A35E2C39DD2300CE2CAF /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 04C8A35D2C39DD2300CE2CAF /* RxCocoa */; };
@@ -20,9 +23,6 @@
 		04C8A37B2C39DE4200CE2CAF /* PublishAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3702C39DE4200CE2CAF /* PublishAttempt.swift */; };
 		04C8A37C2C39DE4200CE2CAF /* PublishError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3712C39DE4200CE2CAF /* PublishError.swift */; };
 		04C8A37D2C39DE4200CE2CAF /* PublishEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3722C39DE4200CE2CAF /* PublishEvent.swift */; };
-		04C8A37E2C39DE4200CE2CAF /* MeetingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3742C39DE4200CE2CAF /* MeetingStatus.swift */; };
-		04C8A37F2C39DE4200CE2CAF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3752C39DE4200CE2CAF /* Model.swift */; };
-		04C8A3802C39DE4200CE2CAF /* ZoomApplicationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3762C39DE4200CE2CAF /* ZoomApplicationStatus.swift */; };
 		04C8A3812C39DE4200CE2CAF /* ZoomChatPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3782C39DE4200CE2CAF /* ZoomChatPublisher.swift */; };
 		04C8A38A2C39DE5800CE2CAF /* CursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3822C39DE5800CE2CAF /* CursesView.swift */; };
 		04C8A38B2C39DE5800CE2CAF /* LoggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3832C39DE5800CE2CAF /* LoggingView.swift */; };
@@ -221,9 +221,6 @@
 		04C8A3772C39DE4200CE2CAF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				04C8A3742C39DE4200CE2CAF /* MeetingStatus.swift */,
-				04C8A3752C39DE4200CE2CAF /* Model.swift */,
-				04C8A3762C39DE4200CE2CAF /* ZoomApplicationStatus.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -233,7 +230,10 @@
 			children = (
 				04C8A3822C39DE5800CE2CAF /* CursesView.swift */,
 				04C8A3832C39DE5800CE2CAF /* LoggingView.swift */,
+				04C8A3742C39DE4200CE2CAF /* MeetingStatus.swift */,
+				04C8A3752C39DE4200CE2CAF /* Model.swift */,
 				04C8A3842C39DE5800CE2CAF /* View.swift */,
+				04C8A3762C39DE4200CE2CAF /* ZoomApplicationStatus.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -413,13 +413,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04C8A37F2C39DE4200CE2CAF /* Model.swift in Sources */,
 				04C8A3792C39DE4200CE2CAF /* AXUIElement+Extensions.swift in Sources */,
 				04C8A37A2C39DE4200CE2CAF /* ChatMessage.swift in Sources */,
-				04C8A3802C39DE4200CE2CAF /* ZoomApplicationStatus.swift in Sources */,
 				04C8A3812C39DE4200CE2CAF /* ZoomChatPublisher.swift in Sources */,
 				04C8A37C2C39DE4200CE2CAF /* PublishError.swift in Sources */,
-				04C8A37E2C39DE4200CE2CAF /* MeetingStatus.swift in Sources */,
 				04C8A37B2C39DE4200CE2CAF /* PublishAttempt.swift in Sources */,
 				04C8A37D2C39DE4200CE2CAF /* PublishEvent.swift in Sources */,
 			);
@@ -429,8 +426,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B837932C4ECA720082CB6D /* ZoomApplicationStatus.swift in Sources */,
+				04B837912C4ECA720082CB6D /* Model.swift in Sources */,
 				04C8A38F2C39DE5800CE2CAF /* Main.swift in Sources */,
 				04C8A38E2C39DE5800CE2CAF /* URLComponents+ExpressibleByArgument.swift in Sources */,
+				04B837922C4ECA720082CB6D /* MeetingStatus.swift in Sources */,
 				04C8A38B2C39DE5800CE2CAF /* LoggingView.swift in Sources */,
 				04C8A38A2C39DE5800CE2CAF /* CursesView.swift in Sources */,
 				04C8A38D2C39DE5800CE2CAF /* Curses+Extensions.swift in Sources */,
