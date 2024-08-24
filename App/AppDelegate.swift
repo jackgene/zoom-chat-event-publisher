@@ -1,8 +1,21 @@
 import Cocoa
+import RxCocoa
 import RxSwift
+import ZoomChatPublisher
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
+    let publishEvents: Observable<Result<PublishEvent, PublishError>> = UserDefaults
+        .standard.rx
+        .observe(String.self, subscriberURLKey)
+        .compactMap { $0 }
+        .distinctUntilChanged()
+        .flatMapLatest { urlSpec in
+            ZoomChatPublisher(
+                destinationURL: URLComponents(string: urlSpec)!
+            ).scrapeAndPublishChatMessages()
+        }
+        .share()
     let disposeBag: DisposeBag = DisposeBag()
     
     private lazy var settingsWindowController: NSWindowController = {
@@ -24,9 +37,50 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             )
             settingsWindowController.showWindow(self)
         }
-    }
-    
-    func applicationWillTerminate(_ aNotification: Notification) {
+        
+        AXIsProcessTrustedWithOptions(
+            [kAXTrustedCheckOptionPrompt.takeUnretainedValue():true] as CFDictionary
+        )
+        
+        let dockTileView: DockTileView = DockTileView(NSApplication.shared.dockTile)
+        
+        publishEvents
+            .map {
+                switch $0 {
+                case .success(_):
+                    DockTileView.Model(
+                        leftIndicator: true,
+                        centerIndicator: true,
+                        rightIndicator: true
+                    )
+                    
+                case .failure(let error):
+                    switch error {
+                    case .zoomNotRunning:
+                        DockTileView.Model(
+                            leftIndicator: false,
+                            centerIndicator: nil,
+                            rightIndicator: nil
+                        )
+                    case .noMeetingInProgress:
+                        DockTileView.Model(
+                            leftIndicator: true,
+                            centerIndicator: false,
+                            rightIndicator: nil
+                        )
+                    case .chatNotOpen:
+                        DockTileView.Model(
+                            leftIndicator: true,
+                            centerIndicator: true,
+                            rightIndicator: false
+                        )
+                    }
+                }
+            }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .bind(to: dockTileView.rx.value)
+            .disposed(by: disposeBag)
     }
     
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04B8378D2C49FBE40082CB6D /* DockTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B8378C2C49FBE40082CB6D /* DockTileView.swift */; };
+		04B837902C4C7D690082CB6D /* CoreGraphics+Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B8378F2C4C7D690082CB6D /* CoreGraphics+Operator.swift */; };
 		04B837912C4ECA720082CB6D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3752C39DE4200CE2CAF /* Model.swift */; };
 		04B837922C4ECA720082CB6D /* MeetingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3742C39DE4200CE2CAF /* MeetingStatus.swift */; };
 		04B837932C4ECA720082CB6D /* ZoomApplicationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A3762C39DE4200CE2CAF /* ZoomApplicationStatus.swift */; };
@@ -91,6 +93,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04B8378C2C49FBE40082CB6D /* DockTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockTileView.swift; sourceTree = "<group>"; };
+		04B8378F2C4C7D690082CB6D /* CoreGraphics+Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Operator.swift"; sourceTree = "<group>"; };
 		04C8A3412C39DAE800CE2CAF /* ZoomChatPublisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZoomChatPublisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C8A34F2C39DB1A00CE2CAF /* CLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C8A36D2C39DE4200CE2CAF /* AXUIElement+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AXUIElement+Extensions.swift"; sourceTree = "<group>"; };
@@ -150,6 +154,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04B8378B2C49FBCC0082CB6D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04B8378C2C49FBE40082CB6D /* DockTileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04B8378E2C4C7D270082CB6D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				04B8378F2C4C7D690082CB6D /* CoreGraphics+Operator.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		04C8A3372C39DAE800CE2CAF = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +270,8 @@
 		04C8A3A82C442A8600CE2CAF /* App */ = {
 			isa = PBXGroup;
 			children = (
+				04B8378E2C4C7D270082CB6D /* Extension */,
+				04B8378B2C49FBCC0082CB6D /* View */,
 				04C8A3A92C442A8600CE2CAF /* AppDelegate.swift */,
 				04C8A3D12C4805D000CE2CAF /* Constants.swift */,
 				04C8A3AB2C442A8600CE2CAF /* SettingsViewController.swift */,
@@ -442,9 +464,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B837902C4C7D690082CB6D /* CoreGraphics+Operator.swift in Sources */,
 				04C8A3AC2C442A8600CE2CAF /* SettingsViewController.swift in Sources */,
 				04C8A3AA2C442A8600CE2CAF /* AppDelegate.swift in Sources */,
 				04C8A3D22C4805D000CE2CAF /* Constants.swift in Sources */,
+				04B8378D2C49FBE40082CB6D /* DockTileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
