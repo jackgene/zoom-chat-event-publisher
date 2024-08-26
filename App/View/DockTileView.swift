@@ -17,6 +17,7 @@ class DockTileView: NSView {
         let leftIndicator: Bool?
         let centerIndicator: Bool?
         let rightIndicator: Bool?
+        let broadcastState: BroadcastState
     }
     
     private static let backgroundColor: CGColor = .init(
@@ -25,8 +26,31 @@ class DockTileView: NSView {
     private static let colorForNil: CGColor = .clear
     private static let colorForFalse: CGColor = NSColor.red.cgColor
     private static let colorForTrue: CGColor = NSColor.green.cgColor
+    private static let margin = 9.0 // = canvasCornerRadius - (indicatorDiameter / 2)
+    private static let broadcastViewWidth = 104 - margin * 2 // 90 = canvasWidth - 2x margin
+    private static let broadcastViewHeight = 104 - margin * 2 - 27 - 3 // 56 = canvasHeight - 2x margin - indicatorDiameter - 3
+    private static let ringGray: CGColor = .init(gray: 0.75, alpha: 1.0)
+    private static let towerOffView: NSView = initTowerView(
+        width: broadcastViewWidth, height: broadcastViewHeight, ringColors: []
+    )
+    private static let towerOnView: NSView = initTowerView(
+        width: broadcastViewWidth, height: broadcastViewHeight,
+        ringColors: [ringGray, ringGray, ringGray]
+    )
+    private static let towerBroadcasting1View: NSView = initTowerView(
+        width: broadcastViewWidth, height: broadcastViewHeight,
+        ringColors: [ringGray, ringGray, .black]
+    )
+    private static let towerBroadcasting2View: NSView = initTowerView(
+        width: broadcastViewWidth, height: broadcastViewHeight,
+        ringColors: [ringGray, .black, ringGray]
+    )
+    private static let towerBroadcasting3View: NSView = initTowerView(
+        width: broadcastViewWidth, height: broadcastViewHeight,
+        ringColors: [.black, ringGray, ringGray]
+    )
     
-    private static func labelFor(value: Bool?) -> CGColor {
+    private static func colorFor(value: Bool?) -> CGColor {
         switch value {
         case nil: colorForNil
         case .some(false): colorForFalse
@@ -39,6 +63,26 @@ class DockTileView: NSView {
         case colorForFalse: false
         case colorForTrue: true
         default: nil
+        }
+    }
+    
+    private static func viewFor(value: BroadcastState) -> NSView {
+        switch value {
+        case .Off: towerOffView
+        case .On: towerOnView
+        case .Broadcasting1: towerBroadcasting1View
+        case .Broadcasting2: towerBroadcasting2View
+        case .Broadcasting3: towerBroadcasting3View
+        }
+    }
+    
+    private static func valueOf(view: NSView?) -> BroadcastState {
+        switch view {
+        case towerOnView: .On
+        case towerBroadcasting1View: .Broadcasting1
+        case towerBroadcasting2View: .Broadcasting2
+        case towerBroadcasting3View: .Broadcasting3
+        default: .Off
         }
     }
     
@@ -78,13 +122,12 @@ class DockTileView: NSView {
         return view
     }
     
-    private static func broadcastView() -> NSView {
-        let margin = 9.0 // = canvasCornerRadius - (indicatorDiameter / 2)
-        let width = 104 - margin * 2 // 90 = canvasWidth - 2x margin
-        let height = 104 - margin * 2 - 27 - 3 // 56 = canvasHeight - 2x margin - indicatorDiameter - 3
+    private static func initTowerView(
+        width: Double, height: Double, ringColors: [CGColor]
+    ) -> NSView {
         let view: NSView = NSView(
             frame: .init(
-                origin: .init(x: margin, y: 27 + margin + 3),
+                origin: .init(x: 0, y: 0),
                 size: .init(width: width, height: height)
             )
         )
@@ -92,10 +135,10 @@ class DockTileView: NSView {
         view.layer?.backgroundColor = backgroundColor
         view.layer?.masksToBounds = true
         let broadcastCenterHeight = 33.0
-        for diameter in stride(from: (height - broadcastCenterHeight) * 2, to: 0, by: -15.0) {
-            print(diameter)
+        let diameters = stride(from: (height - broadcastCenterHeight) * 2, to: 0, by: -15.0)
+        for (diameter, color) in zip(diameters, ringColors) {
             let blackCircleView = initCircleView(
-                diameter: diameter, center: .init(x: width / 2, y: broadcastCenterHeight), color: .black
+                diameter: diameter, center: .init(x: width / 2, y: broadcastCenterHeight), color: color
             )
             view.addSubview(blackCircleView)
             
@@ -136,6 +179,7 @@ class DockTileView: NSView {
     private let leftIndicatorView: NSView
     private let centerIndicatorView: NSView
     private let rightIndicatorView: NSView
+    private let broadcastView: NSView
     private let dockTile: NSDockTile
     
     public init(_ dockTile: NSDockTile) {
@@ -160,7 +204,13 @@ class DockTileView: NSView {
             )
         )
         
-        let broadcastView: NSView = Self.broadcastView()
+        broadcastView = NSView(
+            frame: .init(
+                origin: .init(x: Self.margin, y: 27 + Self.margin + 3),
+                size: .init(width: Self.broadcastViewWidth, height: Self.broadcastViewHeight)
+            )
+        )
+        broadcastView.addSubview(Self.towerOffView)
         
         let shadow = NSShadow()
         shadow.shadowColor = .black.withAlphaComponent(0.75)
@@ -203,13 +253,16 @@ class DockTileView: NSView {
             Model(
                 leftIndicator: Self.valueOf(color: leftIndicatorView.layer?.backgroundColor),
                 centerIndicator: Self.valueOf(color: centerIndicatorView.layer?.backgroundColor),
-                rightIndicator: Self.valueOf(color: rightIndicatorView.layer?.backgroundColor)
+                rightIndicator: Self.valueOf(color: rightIndicatorView.layer?.backgroundColor),
+                broadcastState: Self.valueOf(view: broadcastView.subviews.first)
             )
         }
         set(newValue) {
-            leftIndicatorView.layer?.backgroundColor = Self.labelFor(value: newValue.leftIndicator)
-            centerIndicatorView.layer?.backgroundColor = Self.labelFor(value: newValue.centerIndicator)
-            rightIndicatorView.layer?.backgroundColor = Self.labelFor(value: newValue.rightIndicator)
+            leftIndicatorView.layer?.backgroundColor = Self.colorFor(value: newValue.leftIndicator)
+            centerIndicatorView.layer?.backgroundColor = Self.colorFor(value: newValue.centerIndicator)
+            rightIndicatorView.layer?.backgroundColor = Self.colorFor(value: newValue.rightIndicator)
+            broadcastView.subviews.removeAll()
+            broadcastView.addSubview(Self.viewFor(value: newValue.broadcastState))
             dockTile.display()
         }
     }

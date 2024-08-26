@@ -45,34 +45,86 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let dockTileView: DockTileView = DockTileView(NSApplication.shared.dockTile)
         
         publishEvents
-            .map {
-                switch $0 {
-                case .success(_):
-                    DockTileView.Model(
-                        leftIndicator: true,
-                        centerIndicator: true,
-                        rightIndicator: true
+            .concatMap {
+                return switch $0 {
+                case .success(.noOp):
+                    Observable.just(
+                        DockTileView.Model(
+                            leftIndicator: true,
+                            centerIndicator: true,
+                            rightIndicator: true,
+                            broadcastState: .On
+                        )
                     )
+                    
+                case .success(.publish(_)):
+                    Observable
+                        .zip(
+                            Observable.from(
+                                [
+                                    DockTileView.Model(
+                                        leftIndicator: true,
+                                        centerIndicator: true,
+                                        rightIndicator: true,
+                                        broadcastState: .Broadcasting1
+                                    ),
+                                    DockTileView.Model(
+                                        leftIndicator: true,
+                                        centerIndicator: true,
+                                        rightIndicator: true,
+                                        broadcastState: .Broadcasting2
+                                    ),
+                                    DockTileView.Model(
+                                        leftIndicator: true,
+                                        centerIndicator: true,
+                                        rightIndicator: true,
+                                        broadcastState: .Broadcasting3
+                                    ),
+                                    DockTileView.Model(
+                                        leftIndicator: true,
+                                        centerIndicator: true,
+                                        rightIndicator: true,
+                                        broadcastState: .On
+                                    )
+                                ]
+                            ),
+                            Observable<Int>.interval(
+                                .milliseconds(200), scheduler: MainScheduler.instance
+                            )
+                        )
+                        .map { $0.0 }
+                        .take(4)
                     
                 case .failure(let error):
                     switch error {
                     case .zoomNotRunning:
-                        DockTileView.Model(
-                            leftIndicator: false,
-                            centerIndicator: nil,
-                            rightIndicator: nil
+                        Observable.just(
+                            DockTileView.Model(
+                                leftIndicator: false,
+                                centerIndicator: nil,
+                                rightIndicator: nil,
+                                broadcastState: .Off
+                            )
                         )
+                        
                     case .noMeetingInProgress:
-                        DockTileView.Model(
-                            leftIndicator: true,
-                            centerIndicator: false,
-                            rightIndicator: nil
+                        Observable.just(
+                            DockTileView.Model(
+                                leftIndicator: true,
+                                centerIndicator: false,
+                                rightIndicator: nil,
+                                broadcastState: .Off
+                            )
                         )
+                        
                     case .chatNotOpen:
-                        DockTileView.Model(
-                            leftIndicator: true,
-                            centerIndicator: true,
-                            rightIndicator: false
+                        Observable.just(
+                            DockTileView.Model(
+                                leftIndicator: true,
+                                centerIndicator: true,
+                                rightIndicator: false,
+                                broadcastState: .Off
+                            )
                         )
                     }
                 }
