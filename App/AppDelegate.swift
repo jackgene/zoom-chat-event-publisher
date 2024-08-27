@@ -48,44 +48,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .concatMap {
                 return switch $0 {
                 case .success(.noOp):
-                    Observable.just(
-                        DockTileView.Model(
-                            leftIndicator: true,
-                            centerIndicator: true,
-                            rightIndicator: true,
-                            broadcastState: .On
-                        )
-                    )
+                    Observable.just(NSImage(named: "DockTileBroadcasting0"))
                     
                 case .success(.publish(_)):
                     Observable
                         .zip(
                             Observable.from(
                                 [
-                                    DockTileView.Model(
-                                        leftIndicator: true,
-                                        centerIndicator: true,
-                                        rightIndicator: true,
-                                        broadcastState: .Broadcasting1
-                                    ),
-                                    DockTileView.Model(
-                                        leftIndicator: true,
-                                        centerIndicator: true,
-                                        rightIndicator: true,
-                                        broadcastState: .Broadcasting2
-                                    ),
-                                    DockTileView.Model(
-                                        leftIndicator: true,
-                                        centerIndicator: true,
-                                        rightIndicator: true,
-                                        broadcastState: .Broadcasting3
-                                    ),
-                                    DockTileView.Model(
-                                        leftIndicator: true,
-                                        centerIndicator: true,
-                                        rightIndicator: true,
-                                        broadcastState: .On
-                                    )
+                                    NSImage(named: "DockTileBroadcasting1"),
+                                    NSImage(named: "DockTileBroadcasting2"),
+                                    NSImage(named: "DockTileBroadcasting3"),
+                                    NSImage(named: "DockTileBroadcasting0")
                                 ]
                             ),
                             Observable<Int>.interval(
@@ -98,40 +71,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .failure(let error):
                     switch error {
                     case .zoomNotRunning:
-                        Observable.just(
-                            DockTileView.Model(
-                                leftIndicator: false,
-                                centerIndicator: nil,
-                                rightIndicator: nil,
-                                broadcastState: .Off
-                            )
-                        )
+                        Observable.just(NSImage(named: "DockTileAwaiting1Zoom"))
                         
                     case .noMeetingInProgress:
-                        Observable.just(
-                            DockTileView.Model(
-                                leftIndicator: true,
-                                centerIndicator: false,
-                                rightIndicator: nil,
-                                broadcastState: .Off
-                            )
-                        )
+                        Observable.just(NSImage(named: "DockTileAwaiting2Meeting"))
                         
                     case .chatNotOpen:
-                        Observable.just(
-                            DockTileView.Model(
-                                leftIndicator: true,
-                                centerIndicator: true,
-                                rightIndicator: false,
-                                broadcastState: .Off
-                            )
-                        )
+                        Observable.just(NSImage(named: "DockTileAwaiting3Chat"))
                     }
                 }
             }
             .distinctUntilChanged()
             .observe(on: MainScheduler.instance)
-            .bind(to: dockTileView.rx.value)
+            .bind(to: dockTileView.rx.image)
             .disposed(by: disposeBag)
     }
     
