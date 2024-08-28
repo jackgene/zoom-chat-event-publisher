@@ -1,4 +1,5 @@
 {
+  "originHash" : "883918d3aa33c0c9cdcef4f21b8b010a3c8d469134b79e58a4af4e80f7949dc5",
   "pins" : [
     {
       "identity" : "curses",
@@ -23,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser",
       "state" : {
-        "revision" : "0fbc8848e389af3bb55c182bc19ca9d5dc2f255b",
-        "version" : "1.4.0"
+        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
+        "version" : "1.5.0"
       }
     },
     {
@@ -46,5 +47,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

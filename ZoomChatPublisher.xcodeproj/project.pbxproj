@@ -830,7 +830,7 @@
 			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.4.0;
+				version = 1.5.0;
 			};
 		};
 		04C8A3672C39DD9200CE2CAF /* XCRemoteSwiftPackageReference "swift-log" */ = {
