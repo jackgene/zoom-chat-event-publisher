@@ -196,7 +196,6 @@
 			children = (
 				04C8A36E2C39DE4200CE2CAF /* Extension */,
 				04C8A3732C39DE4200CE2CAF /* Model */,
-				04C8A3772C39DE4200CE2CAF /* View */,
 				04C8A3782C39DE4200CE2CAF /* ZoomChatPublisher.swift */,
 			);
 			path = ZoomChatPublisher;
@@ -236,13 +235,6 @@
 				04C8A3722C39DE4200CE2CAF /* PublishEvent.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		04C8A3772C39DE4200CE2CAF /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		04C8A3852C39DE5800CE2CAF /* View */ = {
