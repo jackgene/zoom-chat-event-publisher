@@ -58,6 +58,6 @@ extension AXUIElement {
     }
 }
 
-extension AXUIElement : CustomStringConvertible {
+extension AXUIElement : @retroactive CustomStringConvertible {
     public var description: String { value(forAttribute: kAXDescriptionAttribute) ?? "" }
 }

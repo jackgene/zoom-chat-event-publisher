@@ -17,7 +17,6 @@ struct Main: ParsableCommand {
     var destinationURL: URLComponents
     
     func run() {
-        URLSession.rx.shouldLogRequest = { _ in false }
         let disposeBag: DisposeBag = DisposeBag()
         let publisher: ZoomChatPublisher = ZoomChatPublisher(
             destinationURL: destinationURL
