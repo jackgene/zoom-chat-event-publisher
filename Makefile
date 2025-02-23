@@ -8,7 +8,7 @@ clean:
 	@rm -rf .build/x86_64-apple-macosx
 	@rm -rf .build/arm64-apple-macosx
 
-build: clean
+build:
 	@swift build -c release --arch x86_64
 	@swift build -c release --arch arm64
 ifdef UPX
